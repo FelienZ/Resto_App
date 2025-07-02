@@ -1,0 +1,30 @@
+<div class="bg-gray-200 min-h-screen">
+    <div class="hero md:w-full flex flex-col justify-end pb-2 md:pb-5 items-center h-70" style="background-image: url(/src/pic/restaurant.jpg);">
+        <p class="font-bold text-lg md:text-2xl text-warning">Apa Kata Mereka?</p>
+        <div class="text-content flex flex-col justify-center items-center text-center p-2">
+            <p class="text-white max-sm:hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, nulla </p>
+            <p class="text-white">Necessitatibus voluptates cum laborum labore dolores aspernatur sequi modi, illum iure accusamus. </p>
+        </div>
+    </div>
+    <p class="font-bold flex justify-center mt-10 text-xl text-gray-800"> Customer Review</p>
+    <% if (testimonials.length < 1) { %>
+     <p class="text-lg to-gray-800"> Belum Ada Ulasan </p>
+    <% } %>
+    <% if (testimonials.length >= 1) { %>
+     <div class="grid md:grid-cols-3 w-[80%] gap-3 place-content-center m-auto mt-5 pb-10 text-gray-800">
+        <% testimonials.forEach(t => { %>
+            <div class="flex flex-col items-center gap-1 bg-white border-1 p-5 border-gray-500 justify-center">
+                <p class="font-bold text-lg"><%= t.nama %></p>
+                <hr class="w-10 h-0.5 bg-gray-600 border-0 rounded-sm">
+                <div class="rating mt-1 mb-2">
+                   <% for( let i = 0; i < t.rating; i++ ) { %>
+                    <input type="radio" class="mask mask-star-2 bg-yellow-400" checked />
+                    <% } %> 
+                </div>
+                <p><%= t.komentar %></p>
+                <p><%= t.tanggal %></p>
+            </div>
+        <% }) %>
+     </div>
+    <% } %>
+</div>

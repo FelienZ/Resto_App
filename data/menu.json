@@ -1,0 +1,56 @@
+[
+  {
+    "id": "-u2XiBDzUz",
+    "pic": "src/pic/katsu.jpg",
+    "menuName": "Chicken Katsu",
+    "price": 20000
+  },
+  {
+    "id": "X5NV-qywPE",
+    "pic": "src/pic/teriyaki.jpg",
+    "menuName": "Chicken Teriyaki",
+    "price": 25000
+  },
+  {
+    "id": "i__YAUTgpN",
+    "pic": "src/pic/Kaarage.jpg",
+    "menuName": "Chicken Kaarage",
+    "price": 18000
+  },
+  {
+    "id": "-YjNEnoL_3",
+    "pic": "src/pic/SALMON-SUSHI-2.png",
+    "menuName": "Salmon Sushi",
+    "price": 45000
+  },
+  {
+    "id": "98J1mHJlxC",
+    "pic": "src/pic/sushi-roll.png",
+    "menuName": "Sushi Roll",
+    "price": 25000
+  },
+  {
+    "id": "_Mc6wXN0Mi",
+    "pic": "src/pic/esteh.jpg",
+    "menuName": "Es Teh",
+    "price": 10000
+  },
+  {
+    "id": "atlPUD_JmZ",
+    "pic": "src/pic/gyudon2.jpg",
+    "menuName": "Gyudon Beef",
+    "price": 35000
+  },
+  {
+    "id": "k0MrIhevFJ",
+    "pic": "src/pic/kaisendon.jpg",
+    "menuName": "Kaisendon",
+    "price": 30000
+  },
+  {
+    "id": "C9cF-qjh9w",
+    "pic": "src/pic/shochu.png",
+    "menuName": "Shochu 1L",
+    "price": 50000
+  }
+]

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="./src/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/fontawesome.css">
+</head>
+<body class="bg-white max-w-screen">
+
+    <%- include('./links') %>
+        <%- body %>
+    <%- include('./footer') %>
+
+<section
+  id="login-form"
+  class="login fixed inset-0 z-50 items-center justify-center bg-black/40 backdrop-blur-sm hidden"
+>
+  <div class="card bg-gray-200 border-2 border-gray-600 max-sm:w-[70%] md:w-full max-w-sm shrink-0 shadow-2xl">
+    <div class="card-body">
+      <fieldset class="fieldset text-gray-800">
+        <p class="flex justify-end font-black text-xl w-full cursor-pointer" id="close-btn">&times;</p>
+        <p class="flex m-auto font-bold text-lg">Login</p>
+        <label class="label text-gray-800">Email</label>
+        <input type="email" class="input bg-gray-100" placeholder="Email" />
+        <label class="label text-gray-800">Password</label>
+        <input type="password" class="input bg-gray-100" placeholder="Password" />
+        <div class="flex justify-between">
+            <a class="link link-hover">Lupa password?</a>
+            <a class="link link-hover" id="registration-trigger">Belum Memiliki Akun?</a>
+        </div>
+        <button class="btn btn-primary mt-4 cursor-pointer w-full">Login</button>
+      </fieldset>
+    </div>
+  </div>
+</section>
+
+<section
+  id="registration-form"
+  class="registration fixed inset-0 z-50 items-center justify-center bg-black/40 backdrop-blur-sm hidden"
+>
+  <div class="card bg-gray-200 border-2 border-gray-600 max-sm:w-[70%] md:w-full max-w-sm shrink-0 shadow-2xl">
+    <div class="card-body">
+      <fieldset class="fieldset text-gray-800">
+        <p class="flex justify-end font-black text-xl w-full cursor-pointer" id="close-btn2">&times;</p>
+        <p class="flex m-auto font-bold text-lg">Daftar Akun</p>
+        <label class="label text-gray-800">Nama</label>
+        <input type="text" class="input bg-gray-100" placeholder="Nama Pengguna" />
+        <label class="label text-gray-800">Email</label>
+        <input type="email" class="input bg-gray-100" placeholder="Email" />
+        <label class="label text-gray-800">Password</label>
+        <input type="password" class="input bg-gray-100" placeholder="Password" />
+        <div class="flex justify-end">
+            <a class="link link-hover" id="login-rdir">Sudah Memiliki Akun?</a>
+        </div>
+        <button class="btn btn-primary mt-4 cursor-pointer w-full">Registrasi</button>
+      </fieldset>
+    </div>
+  </div>
+</section>
+
+    <script>
+        const toggleHamburger = document.getElementById("nav-toggle");
+        const menu = document.getElementById("nav-menu");
+        toggleHamburger.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+        menu.classList.toggle("flex");
+        });
+
+        const animation = document.querySelector('.animation');
+        const information = document.querySelector('.information');
+        setTimeout(() => {
+            animation.classList.toggle('hidden');
+            information.classList.toggle('hidden');
+            information.classList.toggle('flex')
+            information.classList.toggle('mt-10')
+        }, 2000);
+
+        const loginTrigger = document.getElementById('login-trigger');
+        const formLogin = document.getElementById('login-form')
+        loginTrigger.addEventListener('click', function(){
+            formLogin.classList.remove("hidden");
+            formLogin.classList.add("flex");
+        })
+        const closeBtn = document.getElementById('close-btn');
+        closeBtn.addEventListener('click', function(){
+            formLogin.classList.remove("flex");
+            formLogin.classList.add("hidden");
+        })
+        const triggerReg = document.getElementById('registration-trigger');
+        const formReg = document.getElementById('registration-form');
+        triggerReg.addEventListener('click', function(){
+            formLogin.classList.toggle('hidden')
+            formReg.classList.remove("hidden");
+            formReg.classList.add("flex");
+        })
+        const closeBtn2 = document.getElementById('close-btn2');
+        closeBtn2.addEventListener('click', function(){
+            formReg.classList.remove("flex");
+            formReg.classList.add("hidden");
+        })
+
+        const loginRdir = document.getElementById('login-rdir');
+        loginRdir.addEventListener('click', function(){
+            formReg.classList.toggle("hidden");
+            formLogin.classList.remove("hidden");
+            formLogin.classList.add("flex");
+        })
+    </script>
+    <script src="/src/aos/dist/aos.js"></script>
+    <script>
+    AOS.init({
+      offset: 200,
+      duration: 600,
+      easing: 'ease-in-out',
+      delay: 100,
+    });
+    </script>
+</body>
+</html>

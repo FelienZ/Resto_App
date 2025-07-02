@@ -1,0 +1,120 @@
+<section class="hero min-h-screen" style="background-image: url(/src/pic/resto.jpg);">
+  <div class="hero-overlay"></div>
+  <div class="hero-content text-neutral-content text-center">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold" data-aos="fade">FelienZ Resto-App</h1>
+      <p class="mb-5" data-aos="fade">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur non autem placeat quaerat asperiores eveniet, ducimus exercitationem aut dolore praesentium!
+      </p>
+      <button class="btn btn-primary" data-aos="flip-left">Get Started</button>
+    </div>
+  </div>
+</section>
+
+<section class="main-menu bg-gray-200 w-full">
+  <div class="w-full p-5 m-auto max-sm:text-sm">
+    <p class="flex justify-center mb-5 m-auto font-bold text-gray-800 text-xl" data-aos="fade">Daftar Menu</p>
+    <div class="grid grid-cols-2  md:grid-cols-4 gap-x-2 md:gap-x-5 gap-y-3 max-w-screen-xl md:w-full m-auto content-center">
+      <% if (menu.length < 1) { %>
+          <p class="md:col-span-5 text-center text-gray-800 font-bold">Menu Kosong!</p>
+      <% } %>
+      <% if (menu.length >= 1) { %>
+      <% for(let index = 0; index < 4; index++) { %>
+        <div class="card bg-white p-3 border border-gray-300 rounded-md text-black text-center flex flex-col items-center-safe" data-aos="flip-right">
+          <div class="flex items-center gap-3">
+            <img src="<%= menu[index].pic %>" alt="foto" class="w-20 rounded-md">
+            <div class="content flex flex-col items-start">
+              <p class="font-bold"><%= menu[index].menuName %></p>
+              <p>Harga: <%= menu[index].price %></p>
+            </div>
+          </div>      
+          <button class="w-full mt-3 py-1 rounded-md bg-gray-800 text-white">Pesan</button>
+        </div>
+      <% } %>
+      <% } %>
+      
+    </div>
+      <button class="btn m-auto mt-10 flex btn-primary text-white font-bold" data-aos="flip-left">Cek Selengkapnya</button>
+
+  </div>
+
+
+  <div class="container py-10 m-auto md:w-full max-sm:w-[80%]" id="highlight">
+      <p class="flex justify-center mb-5 m-auto font-bold text-gray-800 text-xl" data-aos="fade">Hightlight Menu</p>
+    <div class="ads grid md:grid-cols-3 w-full justify-center m-auto gap-5">
+
+      <div class="highlight md:col-span-2 grid p-5 items-end rounded-lg h-50 bg-cover bg-center text-white" data-aos="zoom-in" style="background-image: url('/src/pic/gyudon.jpg');">
+          <div class="text-content border-2 border-warning rounded-md md:p-3 py-1 px-2">
+          <p class="text-lg font-semibold text-warning bg-white opacity-70 w-fit rounded-md px-1">Gyudon</p>
+          <p class="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. At harum qui quia laudantium eum architecto nisi consequatur animi doloremque id?</p>
+          </div>
+      </div>
+
+      <div class="food grid p-5 items-end rounded-lg h-50 bg-cover bg-center text-white" data-aos="zoom-in" style="background-image: url('/src/pic/kaisendon.png');">
+          <div class="text-content border-2 border-warning rounded-md p-3">
+          <p class="text-lg font-semibold text-warning bg-white opacity-70 w-fit rounded-md px-1">Kaisendon</p>
+          <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, odio.</p>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials bg-gray-100 w-full py-10 h-screen flex flex-col justify-center">
+  <div class="content">
+    <p class="flex font-bold text-gray-800 text-xl justify-center" data-aos="fade">Testimonials Section</p>
+    <% if (testimonials.length < 1) { %>
+     <p class="flex justify-center text-lg"> Belum Ada Penilaian! </p>
+    <% } %>
+    <% if (testimonials.length >= 1) { %>
+      <div class="grid grid-cols-2 mt-10 w-[80%] gap-5 m-auto ">
+     <% testimonials.forEach(test => { %>
+        <div class="card flex flex-col bg-gray-800 p-3 items-center text-white" data-aos="zoom-in">
+          <div class="identity flex items-center gap-x-3" >
+            <i class="fa-regular fa-user"></i>
+            <p class="font-bold text-lg"><%= test.nama %></p>
+          </div>
+          <div class="text-content flex flex-col items-start max-sm:h-30 max-sm:px-2 max-sm:overflow-hidden">
+            <p>"<%= test.komentar %>"</p>
+          </div> 
+          <div class="rating mt-1 mb-2">
+            <% for( let index = 0; index < test.rating; index++ ) { %>
+                <input type="radio" class="mask mask-star-2 bg-yellow-400" checked />
+            <% } %>
+          </div>
+      </div>
+     <% }) %>
+    </div>
+    <% } %>
+    <button class="btn m-auto mt-10 flex btn-warning text-white font-bold" data-aos="flip-left">Ulas Kami! > </button>
+
+  </div>  
+</section>
+
+<section class="FAQs bg-gray-200 w-full flex h-screen">
+  <div class="content flex flex-col w-full m-auto">
+      <p class="flex font-bold justify-center text-xl text-gray-800">FAQ Section</p>
+    <div class="text w-[70%] m-auto flex flex-col mt-5 justify-center gap-2">
+        <div class="collapse collapse-arrow bg-gray-800 border border-base-300" data-aos="fade-right">
+        <input type="checkbox" name="my-accordion-2" />
+        <div class="collapse-title font-semibold">Di Mana Lokasi FelienZ Resto?</div>
+        <div class="collapse-content text-sm">FelienZ Resto Berlokasi di Kota Palembang, Sumatera Selatan</div>
+      </div>
+      <div class="collapse collapse-arrow bg-gray-800 border border-base-300" data-aos="fade-left">
+        <input type="checkbox" name="my-accordion-2" />
+        <div class="collapse-title font-semibold">Apa Menu Rekomendasi dari FelienZ Resto?</div>
+        <div class="collapse-content text-sm">Hightlight menu kami saat ini dapat anda cek <a href="#highlight" class="underline">di sini</a></div>
+      </div>
+      <div class="collapse collapse-arrow bg-gray-800 border border-base-300" data-aos="fade-right">
+        <input type="checkbox" name="my-accordion-2" />
+        <div class="collapse-title font-semibold">Apakah Saya Bisa mendapatkan Potongan Harga?</div>
+        <div class="collapse-content text-sm">Potongan Harga akan segera Hadir, nantikan terus ya!</div>
+      </div>
+      <div class="collapse collapse-arrow bg-gray-800 border border-base-300" data-aos="fade-left">
+        <input type="checkbox" name="my-accordion-2" />
+        <div class="collapse-title font-semibold">Apa Motto dari FelienZ Resto?</div>
+        <div class="collapse-content text-sm">Kami Mengadopsi motto yang kerap digunakan bisnis lainnya, yaitu "Kepuasan Pelanggan Nomor Satu"</div>
+      </div>
+    </div>
+  </div>
+</section>

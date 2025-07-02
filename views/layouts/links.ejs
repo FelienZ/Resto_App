@@ -1,0 +1,44 @@
+<nav class="flex h-fit bg-gray-900 text-white justify-between px-5 py-2">
+        <p class="flex font-bold "><%= pageTitle %></p>
+
+            <!-- Hamburger -->
+        <button id="nav-toggle" class="md:hidden px-5 ">
+        <i class="fas fa-bars text-xl"></i>
+        </button>
+
+        <ul class="hidden flex-col md:flex md:flex-row gap-5 font-normal text-sm  absolute md:static top-10 justify-end right-0 bg-gray-900 md:bg-transparent rounded-b-xl z-50 items-center md:rounded-none p-4 max-sm:w-full md:p-0" id="nav-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="menu">Menu</a></li>
+            <li><a href="review">Reviews</a></li>
+        </ul> 
+</nav>
+<header class="grid bg-white h-fit">
+    <div class="head flex justify-evenly max-sm:text-sm w-full items-center h-fit text-black p-5">
+        <p class="font-bold text-xl text-gray-800 max-sm:text-nowrap max-sm:text-md" data-aos="fade-right">Welcome, sir.</p>
+        <div class="action flex md:gap-3 gap-1 justify-end " data-aos="fade-left"> 
+           <input type="text" placeholder="Search Food" class="input input-bordered border-gray-500 max-sm:w-[50%] md:w-[60%] bg-white" />
+        <a class="btn bg-gray-800 border-none max-sm:w-0.5 text-white"><i class="fa-solid fa-magnifying-glass"></i></a>
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar max-sm:scale-90">
+                <div class="w-10 rounded-full">
+                <img
+                    alt="Tailwind CSS Navbar component"
+                    src="/src/pic/User.png" />
+                </div>
+            </div>
+            <ul
+                tabindex="0"
+                class="menu menu-sm dropdown-content bg-base-100 text-white rounded-box z-99 mt-3 w-52 p-2 shadow">
+                <li>
+                <a class="justify-between">
+                    Profile
+                    <span class="badge badge-info badge-outline">View</span>
+                </a>
+                </li>
+                <li><a>Checkout Pages</a></li>
+                <li id="login-trigger"><a>Login</a></li>
+            </ul>
+            </div> 
+        </div>  
+    </div>
+</header>

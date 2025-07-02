@@ -1,0 +1,44 @@
+[
+  {
+    "id": "t1",
+    "nama": "Kuchiha",
+    "rating": 4,
+    "komentar": "Makanannya enak!",
+    "tanggal": "2025-06-30"
+  },
+  {
+    "id": "t2",
+    "nama": "KazuZero",
+    "rating": 5,
+    "komentar": "Pelayanannya ramah, saya suka suasananya.",
+    "tanggal": "2025-06-29"
+  },
+  {
+    "id": "t1",
+    "nama": "FelienZ",
+    "rating": 5,
+    "komentar": "Resto Jepang Terbaik di Palembang!",
+    "tanggal": "2025-06-30"
+  },
+  {
+    "id": "t2",
+    "nama": "Ranger Zero",
+    "rating": 4,
+    "komentar": "Mantapp.",
+    "tanggal": "2025-06-29"
+  },
+  {
+    "id": "t1",
+    "nama": "Kuchiha",
+    "rating": 4,
+    "komentar": "Makanannya enak!",
+    "tanggal": "2025-06-30"
+  },
+  {
+    "id": "t2",
+    "nama": "KazuZero",
+    "rating": 5,
+    "komentar": "Pelayanannya ramah, saya suka suasananya.",
+    "tanggal": "2025-06-29"
+  }
+]
