@@ -69,12 +69,12 @@
     <% if (testimonials.length >= 1) { %>
       <div class="grid grid-cols-2 mt-10 w-[80%] gap-5 m-auto ">
      <% testimonials.forEach(test => { %>
-        <div class="card flex flex-col bg-gray-800 p-3 items-center text-white" data-aos="zoom-in">
+        <div class="card flex flex-col bg-gray-800 p-3 justify-between items-center text-white" data-aos="zoom-in">
           <div class="identity flex items-center gap-x-3" >
             <i class="fa-regular fa-user"></i>
             <p class="font-bold text-lg"><%= test.nama %></p>
           </div>
-          <div class="text-content flex flex-col items-start max-sm:h-30 max-sm:px-2 max-sm:overflow-hidden">
+          <div class="text-content flex flex-col items-start max-sm:h-20 max-sm:px-2 max-sm:overflow-hidden">
             <p>"<%= test.komentar %>"</p>
           </div> 
           <div class="rating mt-1 mb-2">
