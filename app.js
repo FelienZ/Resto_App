@@ -48,6 +48,7 @@ app.get('/review', async (req, res)=>{
   res.render('review', {
     layout: 'layouts/main',
     title: 'Customer Pages',
+    user: req.session.user,
     testimonials,
     pageTitle: 'Customer Pages' });
 });
@@ -60,6 +61,7 @@ app.get('/menu', async (req, res)=>{
   res.render('menu', {
     layout: 'layouts/main',
     title: 'Menu Pages',
+    user: req.session.user,
     menu,
     pageTitle: 'Menu Pages' });
 });
