@@ -6,6 +6,9 @@
     <title><%= title %></title>
     <link href="./src/output.css" rel="stylesheet">
     <link rel="stylesheet" href="/src/fontawesome.css">
+    <link rel="stylesheet" href="/src/toastify/toastify.css">
+    <script src="/src/toastify/toastify.js"></script>
+    
 </head>
 <body class="bg-white max-w-screen">
 
@@ -13,7 +16,7 @@
         <%- body %>
     <%- include('./footer') %>
 
-<section
+<form
   id="login-form"
   class="login fixed inset-0 z-50 items-center justify-center bg-black/40 backdrop-blur-sm hidden"
 >
@@ -23,20 +26,20 @@
         <p class="flex justify-end font-black text-xl w-full cursor-pointer" id="close-btn">&times;</p>
         <p class="flex m-auto font-bold text-lg">Login</p>
         <label class="label text-gray-800">Email</label>
-        <input type="email" class="input bg-gray-100" placeholder="Email" />
+        <input type="email" class="input bg-gray-100" placeholder="Email" name="email" required />
         <label class="label text-gray-800">Password</label>
-        <input type="password" class="input bg-gray-100" placeholder="Password" />
+        <input type="password" class="input bg-gray-100" placeholder="Password" name="password" required />
         <div class="flex justify-between">
             <a class="link link-hover">Lupa password?</a>
             <a class="link link-hover" id="registration-trigger">Belum Memiliki Akun?</a>
         </div>
-        <button class="btn btn-primary mt-4 cursor-pointer w-full">Login</button>
+        <button class="btn btn-primary mt-4 cursor-pointer w-full" type="submit">Login</button>
       </fieldset>
     </div>
   </div>
-</section>
+</form>
 
-<section
+<form
   id="registration-form"
   class="registration fixed inset-0 z-50 items-center justify-center bg-black/40 backdrop-blur-sm hidden"
 >
@@ -46,68 +49,21 @@
         <p class="flex justify-end font-black text-xl w-full cursor-pointer" id="close-btn2">&times;</p>
         <p class="flex m-auto font-bold text-lg">Daftar Akun</p>
         <label class="label text-gray-800">Nama</label>
-        <input type="text" class="input bg-gray-100" placeholder="Nama Pengguna" />
+        <input type="text" class="input bg-gray-100" placeholder="Nama Pengguna" name="name" required/>
         <label class="label text-gray-800">Email</label>
-        <input type="email" class="input bg-gray-100" placeholder="Email" />
+        <input type="email" class="input bg-gray-100" placeholder="Email" name="email" required/>
         <label class="label text-gray-800">Password</label>
-        <input type="password" class="input bg-gray-100" placeholder="Password" />
+        <input type="password" class="input bg-gray-100" placeholder="Password" name="password" required />
         <div class="flex justify-end">
             <a class="link link-hover" id="login-rdir">Sudah Memiliki Akun?</a>
         </div>
-        <button class="btn btn-primary mt-4 cursor-pointer w-full">Registrasi</button>
+        <button type="submit" class="btn btn-primary mt-4 cursor-pointer w-full">Registrasi</button>
       </fieldset>
     </div>
   </div>
-</section>
+</form>
 
-    <script>
-        const toggleHamburger = document.getElementById("nav-toggle");
-        const menu = document.getElementById("nav-menu");
-        toggleHamburger.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-        menu.classList.toggle("flex");
-        });
-
-        const animation = document.querySelector('.animation');
-        const information = document.querySelector('.information');
-        setTimeout(() => {
-            animation.classList.toggle('hidden');
-            information.classList.toggle('hidden');
-            information.classList.toggle('flex')
-            information.classList.toggle('mt-10')
-        }, 2000);
-
-        const loginTrigger = document.getElementById('login-trigger');
-        const formLogin = document.getElementById('login-form')
-        loginTrigger.addEventListener('click', function(){
-            formLogin.classList.remove("hidden");
-            formLogin.classList.add("flex");
-        })
-        const closeBtn = document.getElementById('close-btn');
-        closeBtn.addEventListener('click', function(){
-            formLogin.classList.remove("flex");
-            formLogin.classList.add("hidden");
-        })
-        const triggerReg = document.getElementById('registration-trigger');
-        const formReg = document.getElementById('registration-form');
-        triggerReg.addEventListener('click', function(){
-            formLogin.classList.toggle('hidden')
-            formReg.classList.remove("hidden");
-            formReg.classList.add("flex");
-        })
-        const closeBtn2 = document.getElementById('close-btn2');
-        closeBtn2.addEventListener('click', function(){
-            formReg.classList.remove("flex");
-            formReg.classList.add("hidden");
-        })
-
-        const loginRdir = document.getElementById('login-rdir');
-        loginRdir.addEventListener('click', function(){
-            formReg.classList.toggle("hidden");
-            formLogin.classList.remove("hidden");
-            formLogin.classList.add("flex");
-        })
-    </script>
+    <script src="/src/scripts/index.js" type="module"></script>
     <script src="/src/aos/dist/aos.js"></script>
     <script>
     AOS.init({
@@ -117,5 +73,7 @@
       delay: 100,
     });
     </script>
+
+
 </body>
 </html>

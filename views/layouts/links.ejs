@@ -19,11 +19,19 @@
            <input type="text" placeholder="Search Food" class="input input-bordered border-gray-500 max-sm:w-[50%] md:w-[60%] bg-white" />
         <a class="btn bg-gray-800 border-none max-sm:w-0.5 text-white"><i class="fa-solid fa-magnifying-glass"></i></a>
         <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar max-sm:scale-90">
+            <div tabindex="0" role="button" class="btn bg-gray-800 btn-circle avatar max-sm:scale-90">
                 <div class="w-10 rounded-full">
-                <img
+                    <% if (typeof user !== 'undefined') { %>
+                    <div class="avatar">
+                        <span class="rounded-full text-white p-2">
+                        <%= user.name[0].toUpperCase() %>
+                        </span>
+                    </div>
+                    <% } else { %>
+                    <img style="background-color: white;"
                     alt="Tailwind CSS Navbar component"
                     src="/src/pic/User.png" />
+                    <% } %>
                 </div>
             </div>
             <ul
