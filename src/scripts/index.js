@@ -1,5 +1,5 @@
-import { FetchDataRegistration }  from "./fetcher.js";
-import { FetchDataLogin } from "./fetcher.js";
+import { FetchDataLogout, FetchDataRegistration, FetchDataLogin }  from "./fetcher.js";
+
 const toggleHamburger = document.getElementById('nav-toggle');
 const menu = document.getElementById('nav-menu');
 toggleHamburger.addEventListener('click', () => {
@@ -17,11 +17,14 @@ setTimeout(() => {
 }, 2000);
 
 const loginTrigger = document.getElementById('login-trigger');
-const formLogin = document.getElementById('login-form');
-loginTrigger.addEventListener('click', () =>{
-  formLogin.classList.remove('hidden');
-  formLogin.classList.add('flex');
-});
+if(loginTrigger){
+    const formLogin = document.getElementById('login-form');
+    loginTrigger.addEventListener('click', () =>{
+    formLogin.classList.remove('hidden');
+    formLogin.classList.add('flex');
+    });    
+}
+
 const closeBtn = document.getElementById('close-btn');
 closeBtn.addEventListener('click', () =>{
   formLogin.classList.remove('flex');
@@ -47,5 +50,24 @@ loginRdir.addEventListener('click', () =>{
   formLogin.classList.add('flex');
 });
 
+const logoutTrigger = document.getElementById("logout-trigger");
+const logoutModal = document.getElementById("logout-modal");
+const cancelLogout = document.getElementById("cancel-logout");
+
+if (logoutTrigger) {
+logoutTrigger.addEventListener("click", () => {
+    console.log(logoutTrigger)
+    logoutModal.classList.remove("hidden");
+    logoutModal.classList.add("flex");
+});
+}
+
+cancelLogout.addEventListener("click", () => {
+logoutModal.classList.add("hidden");
+logoutModal.classList.remove("flex");
+});
+
+
 FetchDataRegistration()
 FetchDataLogin()
+FetchDataLogout()

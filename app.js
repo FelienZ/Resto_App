@@ -173,6 +173,19 @@ app.post('/register', async (req, res) =>{
   });
 });
 
+app.get('/logout', (req, res)=>{
+  req.session.destroy((err)=>{
+    if (err) res.status(500).json({
+      message: 'Gagal Logout!',
+      type: 'error'
+    });
+    res.status(200).json({
+      message: 'Berhasil Logout!',
+      type: 'success'
+    });
+  });
+});
+
 app.use('/', (req, res) =>{
   res.status(404).send({ message: 'Page Not Found' });
 });

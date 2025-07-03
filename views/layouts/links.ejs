@@ -44,8 +44,11 @@
                 </a>
                 </li>
                 <li><a>Checkout Pages</a></li>
+                <% if ( typeof(user) !== 'undefined' ) { %>
+                    <li id="logout-trigger"><a>Logout</a></li>
+                <% } else { %>
                 <li id="login-trigger"><a>Login</a></li>
-            </ul>
+                <% } %>
             </div> 
         </div>  
     </div>

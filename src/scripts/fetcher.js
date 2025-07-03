@@ -96,3 +96,40 @@ export async function FetchDataLogin() {
         }
     })
 }
+
+export async function FetchDataLogout(){
+    const confirmLogout = document.getElementById("confirm-logout");
+    confirmLogout.addEventListener("click", async () => {
+    try {
+        const res = await fetch("/logout");
+        const result = await res.json();
+
+        Toastify({
+        text: result.message,
+        duration: 2000,
+        gravity: "top",
+        position: "center",
+        style: {
+            background: result.type === "error" ? 'red' : 'lime',
+            color: "white"
+        }
+        }).showToast();
+
+        if (result.type === "success") {
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 500);
+        }
+    } catch (err) {
+        Toastify({
+        text: "Gagal logout!",
+        duration: 2000,
+        gravity: "top",
+        position: "center",
+        style: { 
+            ackground: "red", 
+            color: "white" }
+        }).showToast();
+    }
+    });
+}
