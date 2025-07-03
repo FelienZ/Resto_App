@@ -17,8 +17,8 @@ setTimeout(() => {
 }, 2000);
 
 const loginTrigger = document.getElementById('login-trigger');
+const formLogin = document.getElementById('login-form');
 if(loginTrigger){
-    const formLogin = document.getElementById('login-form');
     loginTrigger.addEventListener('click', () =>{
     formLogin.classList.remove('hidden');
     formLogin.classList.add('flex');
