@@ -18,13 +18,20 @@ app.use(expressLayouts);
 //middleware parsing data form HTML
 app.use(express.urlencoded({ extended: true }));
 //middleware session
+
+require('dotenv').config()
 app.use(session({
-  secret: 'app-resto-credentials',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }));
 
 app.set('view engine', 'ejs');
+
+//DB
+const dbConnect = require('./database/db');
+const User = require('./models/User');
+dbConnect();
 
 app.get('/', async (req, res)=>{
   // res.status(200).sendFile(path.join(__dirname, 'resto.html'))
@@ -115,32 +122,39 @@ app.post('/login', async (req, res)=>{
       type: 'error'
     });
   }
-  const akun = await(fs.readFile(path.join(__dirname, 'data', 'register.json')));
-  const data = JSON.parse(akun);
-  const user = data.find((d) => d.email == email);
-  if (!user){
+  // const akun = await(fs.readFile(path.join(__dirname, 'data', 'register.json')));
+  // const data = JSON.parse(akun);
+  // const user = data.find((d) => d.email == email);
+  const entity = await User.findOne({ email });
+  if (!entity){
     return res.status(404).json({
       message: 'Akun Tidak Ditemukan!',
       type: 'error'
     });
   }
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch){
-    return res.status(404).json({
-      message: 'Password Salah!',
-      type: 'error'
+  try {
+    const isMatch = await bcrypt.compare(password, entity.password);
+    if (!isMatch){
+      return res.status(404).json({
+        message: 'Password Salah!',
+        type: 'error'
+      });
+    }
+
+    req.session.user = {
+      name: entity.name,
+      email: entity.name
+    };
+
+    res.status(200).json({
+      message: 'Login berhasil',
+      type: 'success'
     });
+  } catch (err){
+    console.error(err);
+    res.status(500).send({ message: 'Gagal Login!', type: 'error' });
   }
 
-  req.session.user = {
-    name: user.name,
-    email: user.name
-  };
-
-  res.status(200).json({
-    message: 'Login berhasil',
-    type: 'success'
-  });
 });
 
 app.post('/register', async (req, res) =>{
@@ -157,22 +171,36 @@ app.post('/register', async (req, res) =>{
       type: 'error'
     });
   }
-  const filePath = path.join(__dirname, 'data', 'register.json');
-  const users = JSON.parse(await (fs.readFile(filePath, 'utf-8')));
-  const isExist = users.find((u) => u.email == email);
+  // const filePath = path.join(__dirname, 'data', 'register.json');
+  // const users = JSON.parse(await (fs.readFile(filePath, 'utf-8')));
+  // const isExist = users.find((u) => u.email == email);
+
+  const isExist = await User.findOne({ email });
   if (isExist) {
     return res.status(400).json({
       message: 'Email Sudah Dipakai!',
       type: 'error'
     });
   }
-  const hashed = await bcrypt.hash(password, 5);
-  users.push({ name, email, password: hashed });
-  await fs.writeFile(filePath, JSON.stringify(users, null, 2));
-  res.status(201).json({
-    message: 'Berhasil Daftar!',
-    type: 'success'
-  });
+  try {
+    const hashed = await bcrypt.hash(password, 5);
+    // users.push({ name, email, password: hashed });
+    // await fs.writeFile(filePath, JSON.stringify(users, null, 2));
+    const newUser = new User({
+      name: name,
+      email: email,
+      password: hashed
+    });
+
+    await newUser.save();
+    res.status(201).json({
+      message: 'Berhasil Daftar!',
+      type: 'success'
+    });
+  } catch (err){
+    console.error(err);
+    res.status(500).send({ message: 'Gagal Registrasi!', type: 'error' });
+  }
 });
 
 app.get('/logout', (req, res)=>{
