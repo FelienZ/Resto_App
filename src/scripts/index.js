@@ -1,4 +1,4 @@
-import { FetchDataLogout, FetchDataRegistration, FetchDataLogin }  from "./fetcher.js";
+import { FetchDataLogout, FetchDataRegistration, FetchDataLogin, fetchDataReview }  from "./fetcher.js";
 
 const toggleHamburger = document.getElementById('nav-toggle');
 const menu = document.getElementById('nav-menu');
@@ -9,12 +9,14 @@ toggleHamburger.addEventListener('click', () => {
 
 const animation = document.querySelector('.animation');
 const information = document.querySelector('.information');
+if(animation){
 setTimeout(() => {
   animation.classList.toggle('hidden');
   information.classList.toggle('hidden');
   information.classList.toggle('flex');
   information.classList.toggle('mt-10');
 }, 2000);
+}
 
 const loginTrigger = document.getElementById('login-trigger');
 const formLogin = document.getElementById('login-form');
@@ -67,6 +69,32 @@ logoutModal.classList.add("hidden");
 logoutModal.classList.remove("flex");
 });
 
+const btnReview = document.getElementById('btn-review');
+if(btnReview){
+const formReview = document.getElementById('form-review');
+if(formReview){
+  btnReview.addEventListener('click', function(){
+    formReview.classList.remove('hidden');
+    formReview.classList.add('flex')
+    setTimeout(() => {
+      formReview.scrollIntoView({behavior:'smooth'})
+    }, 200);
+    fetchDataReview()
+  })
+}
+if(!formReview){
+  btnReview.addEventListener('click', function(){
+    Toastify({
+      text: 'Silakan Login Terlebih Dahulu!',
+      backgroundColor: 'darkorange',
+      position:'center',
+      duration: 2000
+    }).showToast();
+    formLogin.classList.remove('hidden');
+    formLogin.classList.add('flex');
+  })
+}
+}
 
 FetchDataRegistration()
 FetchDataLogin()

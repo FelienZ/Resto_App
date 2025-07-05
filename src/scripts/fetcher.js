@@ -133,3 +133,47 @@ export async function FetchDataLogout(){
     }
     });
 }
+
+export async function fetchDataReview(){
+    const formReview = document.getElementById('form-review');
+    formReview.addEventListener('submit', async function(e){
+        e.preventDefault();
+        const formData = new FormData(formReview);
+        const data = {
+            rating: Number(formData.get('rating')),
+            comment: formData.get('review-text')
+        }
+        console.log(data)
+        const response = await fetch('/review', {
+            method: 'POST',
+            headers: {'Content-type' : 'application/json'},
+            body: JSON.stringify(data)
+        })
+        try{
+        const result = await response.json();
+            Toastify({
+            text: result.message,
+            duration: 2000,
+            gravity: 'top',
+            position: 'center',
+            style:{
+                background: result.type === 'error' ? 'red' : 'lime',
+                color: 'white'
+            }
+            }).showToast();
+            if(result.type === 'success' && response.ok){
+                formReview.reset();
+            }
+        }catch(err){
+            Toastify({
+            text: "Gagal Posting!",
+            duration: 2000,
+            gravity: "top",
+            position: "center",
+            style: { 
+                ackground: "red", 
+                color: "white" }
+            }).showToast();
+        }
+    })
+}

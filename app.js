@@ -19,7 +19,7 @@ app.use(expressLayouts);
 app.use(express.urlencoded({ extended: true }));
 //middleware session
 
-require('dotenv').config()
+require('dotenv').config();
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -31,35 +31,72 @@ app.set('view engine', 'ejs');
 //DB
 const dbConnect = require('./database/db');
 const User = require('./models/User');
+const Reviews = require('./models/Reviews');
 dbConnect();
 
 app.get('/', async (req, res)=>{
   // res.status(200).sendFile(path.join(__dirname, 'resto.html'))
   const filePath = path.join(__dirname, 'data', 'menu.json');
-  const testiPath = path.join(__dirname, 'data', 'testimonials.json');
+  // const testiPath = path.join(__dirname, 'data', 'testimonials.json');
+  const review = await Reviews.find();
   const menu = JSON.parse(await fs.readFile(filePath, 'utf-8'));
-  const testimonials = JSON.parse(await fs.readFile(testiPath, 'utf-8'));
+  // const testimonials = JSON.parse(await fs.readFile(testiPath, 'utf-8'));
   res.render('resto', {
     layout: 'layouts/main',
     title: 'Resto App',
     menu,
     user: req.session.user,
-    testimonials,
+    // testimonials,
+    review,
     pageTitle: 'Resto App' });
 });
 
 app.get('/review', async (req, res)=>{
   // res.status(200).sendFile(path.join(__dirname, 'customer.html'));
-  const testiPath = path.join(__dirname, 'data', 'testimonials.json');
-  const testimonials = JSON.parse(await fs.readFile(testiPath, 'utf-8'));
+  // const testiPath = path.join(__dirname, 'data', 'testimonials.json');
+  // const testimonials = JSON.parse(await fs.readFile(testiPath, 'utf-8'));
+  const review = await Reviews.find();
   res.render('review', {
     layout: 'layouts/main',
     title: 'Customer Pages',
     user: req.session.user,
-    testimonials,
+    // testimonials,
+    review,
     pageTitle: 'Customer Pages' });
 });
 
+
+app.post('/review', async (req, res)=>{
+  const { comment, rating } = req.body;
+  if (!comment || !rating){
+    return res.status(400).json({
+      message: 'Silahkan Isi Form dulu',
+      type: 'error'
+    });
+  }
+  try {
+    const userData = await User.findOne({ email: req.session.user.email });
+    const idUser = userData._id;
+    const createdAt = new Date().toISOString();
+    const newReview = new Reviews({
+      id: idUser,
+      name: req.session.user.name,
+      rating: Number(rating),
+      comment,
+      createdAt
+    });
+    await newReview.save();
+    res.status(201).json({
+      message: 'Berhasil Menambahkan!',
+      type: 'success'
+    });
+  } catch (err){
+    console.error('Error saat post', err);
+    res.status(500).json({
+      message: 'Gagal menyimpan review',
+      type: 'error' });
+  }
+});
 app.get('/menu', async (req, res)=>{
   // res.status(200).sendFile(path.join(__dirname, 'menu.html'));
   const filePath = path.join(__dirname, 'data', 'menu.json');
@@ -143,7 +180,7 @@ app.post('/login', async (req, res)=>{
 
     req.session.user = {
       name: entity.name,
-      email: entity.name
+      email: entity.email
     };
 
     res.status(200).json({

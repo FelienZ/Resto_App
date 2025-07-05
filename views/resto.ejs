@@ -1,12 +1,11 @@
-<section class="hero min-h-screen w-full max-w-full" style="background-image: url(/src/pic/resto.jpg);">
+<section class="hero min-h-screen w-full max-w-full" style="background-image: url(/src/pic/resto.jpg);" id="hero-section">
   <div class="hero-overlay"></div>
   <div class="hero-content text-neutral-content text-center">
     <div class="max-w-md">
-      <h1 class="mb-5 text-5xl font-bold" data-aos="fade">FelienZ Resto-App</h1>
-      <p class="mb-5" data-aos="fade">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur non autem placeat quaerat asperiores eveniet, ducimus exercitationem aut dolore praesentium!
-      </p>
-      <button class="btn btn-primary" data-aos="flip-left">Get Started</button>
+      <h1 class="mb-5 text-5xl drop-shadow-xl  max-sm:text-3xl font-bold" data-aos="fade">FelienZ Resto-App</h1>
+      <p class="mb-5 font-medium max-sm:text-sm drop-shadow-xl" data-aos="fade">
+        Selamat Datang di Website Kami. FelienZ Resto Adalah Restoran Jepang yang Menyajikan Berbagai Kuliner Khas Jepang di Kota Palembang</p>
+      <button class="btn btn-primary cursor-pointer" data-aos="flip-left">Get Started</button>
     </div>
   </div>
 </section>
@@ -20,21 +19,21 @@
       <% } %>
       <% if (menu.length >= 1) { %>
       <% for(let index = 0; index < 4; index++) { %>
-        <div class="card bg-white p-3 border border-gray-300 rounded-md text-black text-center flex flex-col items-center-safe" data-aos="flip-right">
-          <div class="flex items-center gap-3">
-            <img src="<%= menu[index].pic %>" alt="foto" class="w-20 rounded-md max-w-full">
+        <div class="card bg-white p-2 border border-gray-300 rounded-md text-black text-center flex items-center" data-aos="flip-right">
+          <div class="flex items-center max-sm:gap-1 gap-x-10">
+            <img src="<%= menu[index].pic %>" alt="foto" class="w-20 max-sm:w-14 rounded-md max-w-full">
             <div class="content flex flex-col items-start">
               <p class="font-bold"><%= menu[index].menuName %></p>
-              <p>Harga: <%= menu[index].price %></p>
+              <p><%= menu[index].price.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
             </div>
           </div>      
-          <button class="w-full mt-3 py-1 rounded-md bg-gray-800 text-white">Pesan</button>
+          <button class="w-full mt-3 py-1 rounded-md bg-gray-800 text-white cursor-pointer">Pesan</button>
         </div>
       <% } %>
       <% } %>
       
     </div>
-      <button class="btn m-auto mt-10 flex btn-primary text-white font-bold" data-aos="flip-left">Cek Selengkapnya</button>
+      <button class="btn m-auto mt-10 flex btn-primary text-white font-bold cursor-pointer" data-aos="flip-left" ><a href="menu">Cek Selengkapnya</a></button>
 
   </div>
 
@@ -46,14 +45,16 @@
       <div class="highlight md:col-span-2 grid p-5 items-end rounded-lg h-50 bg-cover bg-center text-white" data-aos="zoom-in" style="background-image: url('/src/pic/gyudon.jpg');">
           <div class="text-content border-2 border-warning rounded-md md:p-3 py-1 px-2">
           <p class="text-lg font-semibold text-warning bg-white opacity-70 w-fit rounded-md px-1">Gyudon</p>
-          <p class="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. At harum qui quia laudantium eum architecto nisi consequatur animi doloremque id?</p>
+          <p class="text-sm drop-shadow-xl  h-15 overflow-y-hidden">
+            Gyudon adalah hidangan Jepang yang populer berupa semangkuk nasi (donburi) dengan daging sapi dan bawang bombay yang dimasak dalam saus manis gurih.
+          </p>
           </div>
       </div>
 
       <div class="food grid p-5 items-end rounded-lg h-50 bg-cover bg-center text-white" data-aos="zoom-in" style="background-image: url('/src/pic/kaisendon.png');">
           <div class="text-content border-2 border-warning rounded-md p-3">
           <p class="text-lg font-semibold text-warning bg-white opacity-70 w-fit rounded-md px-1">Kaisendon</p>
-          <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, odio.</p>
+          <p class="text-sm drop-shadow-xl h-15 overflow-y-hidden">Hidangan Jepang berupa semangkuk nasi (donburi) yang dihiasi berbagai makanan laut mentah (kaisen) segar.</p>
           </div>
       </div>
     </div>
@@ -63,22 +64,22 @@
 <section class="testimonials bg-gray-100 w-full py-10 min-h-screen flex flex-col justify-center">
   <div class="content">
     <p class="flex font-bold text-gray-800 text-xl justify-center" data-aos="fade">Testimonials Section</p>
-    <% if (testimonials.length < 1) { %>
+    <% if (review.length < 1) { %>
      <p class="flex justify-center text-lg"> Belum Ada Penilaian! </p>
     <% } %>
-    <% if (testimonials.length >= 1) { %>
+    <% if (review.length >= 1) { %>
       <div class="grid grid-cols-2 mt-10 w-[80%] gap-5 m-auto ">
-     <% testimonials.forEach(test => { %>
-        <div class="card flex flex-col bg-gray-800 p-3 justify-between items-center text-white" data-aos="zoom-in">
+     <% review.forEach(r => { %>
+        <div class="card flex flex-col bg-gray-800 p-3 justify-between max-sm:h-50 items-center text-white" data-aos="zoom-in">
           <div class="identity flex items-center justify-center gap-x-3" >
             <i class="fa-regular fa-user"></i>
-            <p class="font-bold text-lg"><%= test.nama %></p>
+            <p class="font-bold text-lg text-center"><%= r.name %></p>
           </div>
-          <div class="text-content flex flex-col items-start max-sm:h-20 max-sm:px-2 max-sm:overflow-hidden">
-            <p>"<%= test.komentar %>"</p>
+          <div class="text-content flex flex-col items-start max-sm:h-20 max-sm:px-2 text-center max-sm:text-sm max-sm:overflow-y-hidden">
+            <p>"<%= r.comment %>"</p>
           </div> 
           <div class="rating mt-1 mb-2">
-            <% for( let index = 0; index < test.rating; index++ ) { %>
+            <% for( let index = 0; index < r.rating; index++ ) { %>
                 <input type="radio" class="mask mask-star-2 bg-yellow-400" checked />
             <% } %>
           </div>
@@ -86,7 +87,7 @@
      <% }) %>
     </div>
     <% } %>
-    <button class="btn m-auto mt-10 flex btn-warning text-white font-bold" data-aos="flip-left">Ulas Kami! > </button>
+    <button class="btn m-auto mt-10 flex btn-warning text-white font-bold cursor-pointer" data-aos="flip-left"><a href="review">Ulas Kami!</a></button>
 
   </div>  
 </section>

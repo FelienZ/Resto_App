@@ -7,24 +7,46 @@
         </div>
     </div>
     <p class="font-bold flex justify-center mt-10 text-xl text-gray-800"> Customer Review</p>
-    <% if (testimonials.length < 1) { %>
+    <div class="flex justify-center my-3">
+        <button class="btn btn-warning font-bold text-lg text-white" id="btn-review">Add New</button>
+    </div>
+    <% if (review.length < 1) { %>
      <p class="text-lg to-gray-800"> Belum Ada Ulasan </p>
     <% } %>
-    <% if (testimonials.length >= 1) { %>
+    <% if (review.length >= 1) { %>
      <div class="grid md:grid-cols-3 w-[80%] gap-3 place-content-center m-auto mt-5 pb-10 text-gray-800">
-        <% testimonials.forEach(t => { %>
+        <% review.forEach(r => { %>
             <div class="flex flex-col items-center gap-1 bg-white border-1 p-5 border-gray-500 justify-center">
-                <p class="font-bold text-lg"><%= t.nama %></p>
+                <p class="font-bold text-lg"><%= r.name %></p>
                 <hr class="w-10 h-0.5 bg-gray-600 border-0 rounded-sm">
                 <div class="rating mt-1 mb-2">
-                   <% for( let i = 0; i < t.rating; i++ ) { %>
+                   <% for( let i = 0; i < r.rating; i++ ) { %>
                     <input type="radio" class="mask mask-star-2 bg-yellow-400" checked />
                     <% } %> 
                 </div>
-                <p><%= t.komentar %></p>
-                <p><%= t.tanggal %></p>
+                <p class="text-center"><%= r.comment %></p>
+                <p><%= r.createdAt.toLocaleDateString() %></p>
             </div>
         <% }) %>
      </div>
     <% } %>
+    <% if (typeof(user) !== 'undefined') { %>
+     <form id="form-review" class="pb-10 hidden">
+        <div class=" grid gap-5 container w-[80%] bg-white text-gray-900 p-5 border-1 m-auto border-gray-600">
+            <label class="label text-gray-900 text-3xl m-auto font-bold">Ulasan Anda</label>
+            <div class="rating rating-xl flex justify-center">
+                <input type="radio" name="rating" class="mask mask-star-2 bg-yellow-400" value="1" />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-yellow-400" value="2" />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-yellow-400" value="3" checked/>
+                <input type="radio" name="rating" class="mask mask-star-2 bg-yellow-400" value="4" />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-yellow-400" value="5" />
+            </div>
+            <textarea name="review-text" class="drop-shadow-lg bg-white border text-lg rounded-md resize-none border-gray-600 p-3" placeholder="Tuliskan Ulasan Anda.." id="input-area" maxlength="200"></textarea>
+            <div class="btn-submit flex justify-end">
+                <button type="submit" class="btn btn-primary text-lg w-fit">Kirim</button>
+            </div>
+        </div>
+    </form>
+    <% } %>
 </div>
+
