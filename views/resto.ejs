@@ -75,12 +75,12 @@
         <% let index = 0; %>
      <% review.forEach(r => { %>
         <% if (index < 6) { %>
-         <div class="card flex flex-col bg-gray-800 p-3 justify-between h-40 items-center text-white" data-aos="zoom-in">
+         <div class="card flex flex-col bg-gray-800 p-3 justify-between h-40 max-sm:h-50 items-center text-white" data-aos="zoom-in">
           <div class="identity flex items-center justify-center gap-x-3" >
             <i class="fa-regular fa-user"></i>
             <p class="font-bold text-lg text-center"><%= r.name %></p>
           </div>
-          <div class="text-content flex flex-col items-start max-sm:h-20 max-sm:px-2 text-center max-sm:text-sm max-sm:overflow-y-hidden">
+          <div class="text-content flex flex-col items-start max-sm:h-25 max-sm:px-2 text-center max-sm:text-sm max-sm:overflow-y-hidden">
             <p>"<%= r.comment %>"</p>
           </div> 
           <div class="rating mt-1 mb-2">
