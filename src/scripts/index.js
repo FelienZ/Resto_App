@@ -80,6 +80,7 @@ if(formReview){
       formReview.scrollIntoView({behavior:'smooth'})
     }, 200);
     fetchDataReview()
+    return;
   })
 }
 if(!formReview){

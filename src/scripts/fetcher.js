@@ -163,6 +163,9 @@ export async function fetchDataReview(){
             }).showToast();
             if(result.type === 'success' && response.ok){
                 formReview.reset();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
             }
         }catch(err){
             Toastify({
