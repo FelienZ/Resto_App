@@ -2,7 +2,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content text-neutral-content text-center">
     <div class="max-w-md">
-      <h1 class="mb-5 text-5xl drop-shadow-xl  max-sm:text-3xl font-bold" data-aos="fade">FelienZ Resto-App</h1>
+      <h1 class="mb-5 text-5xl drop-shadow-xl  max-sm:text-3xl font-black" data-aos="fade">FelienZ Resto-App</h1>
       <p class="mb-5 font-medium max-sm:text-sm drop-shadow-xl" data-aos="fade">
         Selamat Datang di Website Kami. FelienZ Resto Adalah Restoran Jepang yang Menyajikan Berbagai Kuliner Khas Jepang di Kota Palembang</p>
       <button class="btn btn-primary cursor-pointer" data-aos="flip-left">Get Started</button>
@@ -11,11 +11,12 @@
 </section>
 
 <section class="main-menu flex flex-col justify-center items-center bg-gray-200 w-full min-h-screen">
+  <div class="content m-auto">
   <div class="w-full py-5 px-2 m-auto max-sm:text-sm overflow-x-hidden">
-    <p class="flex justify-center mb-5 m-auto font-bold text-gray-800 text-xl" data-aos="fade">Daftar Menu</p>
+    <p class="flex justify-center mb-5 m-auto font-black text-gray-800 text-xl" data-aos="fade">Daftar Menu</p>
     <div class="grid grid-cols-2  md:grid-cols-4 gap-3 max-w-screen-xl w-full m-auto content-center">
       <% if (menu.length < 1) { %>
-          <p class="md:col-span-5 text-center text-gray-800 font-bold">Menu Kosong!</p>
+          <p class="md:col-span-5 text-center text-gray-800 font-black">Menu Kosong!</p>
       <% } %>
       <% if (menu.length >= 1) { %>
       <% for(let index = 0; index < 4; index++) { %>
@@ -23,7 +24,7 @@
           <div class="flex items-center w-full gap-2 justify-center h-20 sm:text-sm">
             <img src="<%= menu[index].pic %>" alt="foto" class="w-30 max-sm:w-16 sm:w-16 rounded-md max-w-full">
             <div class="content flex flex-col items-center max-sm:text-sm">
-              <p class="font-bold"><%= menu[index].menuName %></p>
+              <p class="font-black"><%= menu[index].menuName %></p>
               <p><%= menu[index].price.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
             </div>
           </div>      
@@ -33,13 +34,13 @@
       <% } %>
       
     </div>
-      <button class="btn m-auto mt-10 flex btn-primary text-white font-bold cursor-pointer" data-aos="flip-left" ><a href="menu">Cek Selengkapnya</a></button>
+      <button class="btn m-auto mt-10 flex btn-primary text-white font-black cursor-pointer" data-aos="flip-left" ><a href="menu">Cek Selengkapnya</a></button>
 
   </div>
 
 
   <div class="container py-10 m-auto w-[90%]" id="highlight">
-      <p class="flex justify-center mb-5 m-auto font-bold text-gray-800 text-xl" data-aos="fade">Hightlight Menu</p>
+      <p class="flex justify-center mb-5 m-auto font-black text-gray-800 text-xl" data-aos="fade">Hightlight Menu</p>
     <div class="ads grid md:grid-cols-3 w-full justify-center m-auto gap-5 overflow-x-hidden">
 
       <div class="highlight md:col-span-2 grid p-5 items-end rounded-lg h-50 bg-cover bg-center text-white" data-aos="zoom-in" style="background-image: url('/src/pic/gyudon.jpg');">
@@ -59,23 +60,25 @@
       </div>
     </div>
   </div>
+  </div>
+
 </section>
 
 <section class="testimonials bg-gray-100 w-full py-10 min-h-screen flex flex-col justify-center">
-  <div class="content">
-    <p class="flex font-bold text-gray-800 text-xl justify-center" data-aos="fade">Testimonials Section</p>
+  <div class="content m-auto">
+    <p class="flex font-black text-gray-800 text-xl justify-center" data-aos="fade">Testimonials Section</p>
     <% if (review.length < 1) { %>
      <p class="flex justify-center text-lg"> Belum Ada Penilaian! </p>
     <% } %>
     <% if (review.length >= 1) { %>
-      <div class="grid grid-cols-2 mt-10 w-[80%] gap-5 m-auto overflow-x-hidden">
+      <div class="grid grid-cols-2 mt-10 w-[80%] gap-5 h-fit items-center justify-center m-auto overflow-x-hidden">
         <% let index = 0; %>
      <% review.forEach(r => { %>
         <% if (index < 6) { %>
-         <div class="card flex flex-col bg-gray-800 p-3 justify-between max-sm:h-50 items-center text-white" data-aos="zoom-in">
+         <div class="card flex flex-col bg-gray-800 p-3 justify-between h-40 items-center text-white" data-aos="zoom-in">
           <div class="identity flex items-center justify-center gap-x-3" >
             <i class="fa-regular fa-user"></i>
-            <p class="font-bold text-lg text-center"><%= r.name %></p>
+            <p class="font-black text-lg text-center"><%= r.name %></p>
           </div>
           <div class="text-content flex flex-col items-start max-sm:h-20 max-sm:px-2 text-center max-sm:text-sm max-sm:overflow-y-hidden">
             <p>"<%= r.comment %>"</p>
@@ -91,15 +94,15 @@
      <% }) %>
     </div>
     <% } %>
-    <button class="btn m-auto mt-10 flex btn-warning text-white font-bold cursor-pointer" data-aos="flip-left"><a href="review">Ulas Kami!</a></button>
+    <button class="btn m-auto mt-10 flex btn-warning text-white font-black cursor-pointer" data-aos="flip-left"><a href="review">Ulas Kami!</a></button>
 
   </div>  
 </section>
 
 <section class="FAQs bg-gray-200 w-full overflow-x-hidden flex h-screen">
   <div class="content flex flex-col w-full m-auto overflow-x-hidden">
-      <p class="flex font-bold justify-center text-xl text-gray-800" data-aos="fade">FAQ Section</p>
-    <div class="text w-[70%] m-auto flex flex-col mt-5 justify-center gap-2">
+      <p class="flex font-black justify-center text-xl text-gray-800" data-aos="fade">FAQ Section</p>
+    <div class="text w-[70%] m-auto flex flex-col mt-5 justify-center gap-4">
         <div class="collapse collapse-arrow bg-gray-800 border border-base-300" data-aos="fade-right">
         <input type="checkbox" name="my-accordion-2" />
         <div class="collapse-title font-semibold">Di Mana Lokasi FelienZ Resto?</div>
