@@ -97,6 +97,75 @@ if(!formReview){
 }
 }
 
+const checkOutTrigger = document.querySelectorAll('.pesan');
+if(checkOutTrigger){
+  const formCheckOut = document.getElementById('checkout-modal');
+  let jumlah = document.querySelector('.jumlah');
+    const add = document.querySelector('.increment');
+    const reduce = document.querySelector('.decrement');
+    const totalPrice = document.getElementById('totalPrice')
+    let currentPrice = 0;
+    updateHarga();
+    add.addEventListener('click', function(){
+      if(jumlah.value < 10){
+        let amount = parseInt(jumlah.value)
+        jumlah.value = ++amount;
+        // totalPrice.textContent = (currentPrice + (jumlah.value *hargaFix)).toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})
+        updateHarga();
+      }
+    })
+    reduce.addEventListener('click', function(){
+      if(jumlah.value > 1){
+        let amount = parseInt(jumlah.value)
+        jumlah.value = --amount;
+        // totalPrice.textContent = (currentPrice + (jumlah.value *hargaFix)).toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})
+        updateHarga();
+      }
+    })
+
+    function updateHarga(){
+      const total = parseInt(jumlah.value)
+      const totalHarga = currentPrice * total
+      totalPrice.textContent = totalHarga.toLocaleString("id-ID", {style: 'currency', currency: 'IDR'});
+    }
+    
+  checkOutTrigger.forEach(check => {
+    check.addEventListener('click', function(){
+    const card = this.closest('.card');
+    
+    const name = card.querySelector('#menuName')
+    const pic = card.querySelector('#menuPic')
+    const price = card.querySelector('#menuPrice').textContent.trim();
+
+    const picture = pic.getAttribute('src')
+    const nama = document.querySelector('.nama');
+    const gambar = document.querySelector('.gambar');
+    const harga = document.querySelector('.harga');
+
+    nama.innerHTML = name.textContent;
+    gambar.setAttribute('src', picture)
+    harga.innerHTML = price;
+    
+    const cleaned = price.replace(",00", "");
+    const hargaFix = parseInt(cleaned.replace(/\D/g, ""));
+
+    currentPrice = hargaFix;
+
+    updateHarga();
+
+    formCheckOut.classList.remove('hidden');
+    formCheckOut.classList.add('flex')
+  })
+  
+  const closeCheckOut = document.getElementById('close-checkout');
+  closeCheckOut.addEventListener('click', function(){
+    formCheckOut.classList.remove('flex');
+    formCheckOut.classList.add('hidden')
+  })
+  })
+  
+}
+
 FetchDataRegistration()
 FetchDataLogin()
 FetchDataLogout()

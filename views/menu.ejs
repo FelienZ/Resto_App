@@ -12,10 +12,10 @@
             <div class="grid grid-cols-2 px-2 md:grid-cols-3 md:gap-5 gap-2 mb-5">
                 <% for( let index = 0; index < menu.length; index++ ) { %>
                     <div class="card bg-white md:px-10 p-3 rounded-md grid gap-1 md:gap-3 border-2 border-gray-500 text-black text-center" data-aos="zoom-in">
-                    <img src="<%= menu[index].pic %>" alt="foto" class="rounded-md">
-                    <p class="font-bold text-gray-800"><%= nama = menu[index].menuName %></p>
-                    <p><%= menu[index].price.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}) %></p>
-                    <button class="w-full py-1 cursor-pointer rounded-md bg-gray-800 text-white">Pesan</button>
+                    <img src="<%= menu[index].pic %>" alt="foto" class="rounded-md" id="menuPic">
+                    <p class="font-bold text-gray-800" id="menuName"><%= nama = menu[index].menuName %></p>
+                    <p id="menuPrice"><%= menu[index].price.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}) %></p>
+                    <button class="pesan w-full py-1 cursor-pointer rounded-md bg-gray-800 text-white">Pesan</button>
                     </div>
                 <% } %>
             </div>

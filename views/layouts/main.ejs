@@ -71,6 +71,44 @@
   </div>
   </div>
 
+  <div id="checkout-modal" class="fixed z-50 inset-0 hidden items-center justify-center p-3 bg-black/40 backdrop-blur-md">
+    <div class="bg-white text-gray-800 rounded-md shadow text-center w-fit">
+      <div class="font-bold text-xl bg-gray-800 flex justify-between items-center text-white p-2 rounded-t-md">
+        <p class="m-auto text-center">Pesan Menu</p>
+        <button class="px-1 cursor-pointer" id="close-checkout">&times;</button>
+      </div>
+      <div class="content p-3">
+      <div class="flex gap-5 my-5">
+        <img src="/src/pic/Gyudon2.jpg" alt="" class="gambar w-40 rounded-xl">
+        <div class="info flex flex-col gap-5 text-center justify-center w-[80%] font-bold">
+          <p class="nama"></p>
+          <p>Harga: </p>
+          <p class="harga font-normal"></p>
+        </div>
+      </div>
+      <div class="deskripsi my-5">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio, odit.
+      </div>
+      <div class="flex justify-end gap-3 items-center">
+        <p class="font-bold">Jumlah: </p>
+        <div class="amount">
+          <button class="decrement size-10 bg-gray-800 text-white btn">-</button>
+          <input type="number" class="input jumlah w-10 bg-white border border-gray-800 no-spinner" value="1">
+          <button class="increment size-10 bg-gray-800 text-white btn">+</button>
+        </div>
+      </div>        
+      </div>
+      <div class="font-bold text-xl p-3 flex justify-between items-center rounded-b-md">
+        <div class="content flex gap-2 max-sm:text-sm">
+          <p>Total: </p>
+          <p id="totalPrice"></p>  
+        </div>
+        <button class="btn btn-primary max-sm:p-2">Pesan Sekarang!</button>
+      </div>
+    </div>
+  </div>
+
+
     <script src="/src/scripts/index.js" type="module"></script>
     <script src="/src/aos/dist/aos.js"></script>
     <script>

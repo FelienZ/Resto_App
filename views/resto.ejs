@@ -3,7 +3,7 @@
   <div class="hero-content text-neutral-content text-center">
     <div class="max-w-md">
       <h1 class="mb-5 text-5xl drop-shadow-xl  max-sm:text-3xl font-bold" data-aos="fade">FelienZ Resto-App</h1>
-      <p class="mb-5 font-medium max-sm:text-sm drop-shadow-xl" data-aos="fade">
+      <p class="mb-5 font-medium max-sm:text-sm drop-shadow-xl max-sm:w-[60%] max-sm:m-auto max-sm:mb-3" data-aos="fade">
         Selamat Datang di Website Kami. FelienZ Resto Adalah Restoran Jepang yang Menyajikan Berbagai Kuliner Khas Jepang di Kota Palembang</p>
       <button class="btn btn-primary cursor-pointer" data-aos="flip-left">Get Started</button>
     </div>
@@ -22,13 +22,13 @@
       <% for(let index = 0; index < 4; index++) { %>
         <div class="card bg-white p-2 border pt-1 border-gray-300 overflow-x-hidden rounded-md h-fit text-xl sm:text-base justify-center text-black text-center flex items-center" data-aos="flip-right">
           <div class="flex items-center w-full gap-2 justify-center h-20 sm:text-sm">
-            <img src="<%= menu[index].pic %>" alt="foto" class="w-30 max-sm:w-16 sm:w-16 rounded-md max-w-full">
+            <img src="<%= menu[index].pic %>" alt="foto" class="w-30 max-sm:w-16 sm:w-16 rounded-md max-w-full" id="menuPic">
             <div class="content flex flex-col items-center max-sm:text-sm">
-              <p class="font-bold"><%= menu[index].menuName %></p>
-              <p><%= menu[index].price.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
+              <p class="font-bold" id="menuName"><%= menu[index].menuName %></p>
+              <p id="menuPrice"><%= menu[index].price.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
             </div>
           </div>      
-          <button class="w-full mt-1 md:py-1 rounded-md bg-gray-800 text-white cursor-pointer">Pesan</button>
+          <button class="pesan w-full mt-1 md:py-1 rounded-md bg-gray-800 text-white cursor-pointer">Pesan</button>
         </div>
       <% } %>
       <% } %>
@@ -126,3 +126,5 @@
     </div>
   </div>
 </section>
+
+
