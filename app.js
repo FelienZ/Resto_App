@@ -32,6 +32,7 @@ app.set('view engine', 'ejs');
 const dbConnect = require('./database/db');
 const User = require('./models/User');
 const Reviews = require('./models/Reviews');
+const Order = require('./models/Orders');
 dbConnect();
 
 app.get('/', async (req, res)=>{
@@ -65,6 +66,36 @@ app.get('/review', async (req, res)=>{
     pageTitle: 'Customer Pages' });
 });
 
+app.post('/checkout', async (req, res)=>{
+  const { nama, jumlah, hargaTotal  } = req.body;
+  const users = req.session.user;
+  try {
+    const createdAt = new Date().toISOString();
+    if (users != undefined){
+      const userData = await User.findOne({ email : req.session.user.email });
+      const idUser = userData._id;
+      const newOrders = new Order({
+        id: idUser,
+        userName: req.session.user.name,
+        name: nama,
+        totalItem: jumlah,
+        totalPrice: hargaTotal,
+        createdAt,
+      });
+      await newOrders.save();
+      res.status(201).json({
+        message: 'Berhasil Memesan!',
+        type: 'success'
+      });
+    }
+  } catch (err){
+    console.error('Error saat post', err);
+    res.status(500).json({
+      message: 'Gagal menyimpan review',
+      type: 'error' });
+
+  }
+});
 
 app.post('/review', async (req, res)=>{
   const { comment, rating } = req.body;

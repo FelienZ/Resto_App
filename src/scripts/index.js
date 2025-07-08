@@ -1,4 +1,4 @@
-import { FetchDataLogout, FetchDataRegistration, FetchDataLogin, fetchDataReview }  from "./fetcher.js";
+import { FetchDataLogout, FetchDataRegistration, FetchDataLogin, fetchDataReview, fetchDataCheckOut }  from "./fetcher.js";
 
 const toggleHamburger = document.getElementById('nav-toggle');
 const menu = document.getElementById('nav-menu');
@@ -58,7 +58,7 @@ const cancelLogout = document.getElementById("cancel-logout");
 
 if (logoutTrigger) {
 logoutTrigger.addEventListener("click", () => {
-    console.log(logoutTrigger)
+    // console.log(logoutTrigger)
     logoutModal.classList.remove("hidden");
     logoutModal.classList.add("flex");
 });
@@ -103,10 +103,12 @@ if(checkOutTrigger){
   let jumlah = document.querySelector('.jumlah');
     const add = document.querySelector('.increment');
     const reduce = document.querySelector('.decrement');
-    const totalPrice = document.getElementById('totalPrice')
+    const totalPrice = document.getElementById('totalPrice');
+    const totalPriceForm = document.getElementById('totalPriceForm');
     let currentPrice = 0;
     updateHarga();
-    add.addEventListener('click', function(){
+    add.addEventListener('click', function(e){
+      e.preventDefault();
       if(jumlah.value < 10){
         let amount = parseInt(jumlah.value)
         jumlah.value = ++amount;
@@ -114,7 +116,8 @@ if(checkOutTrigger){
         updateHarga();
       }
     })
-    reduce.addEventListener('click', function(){
+    reduce.addEventListener('click', function(e){
+      e.preventDefault();
       if(jumlah.value > 1){
         let amount = parseInt(jumlah.value)
         jumlah.value = --amount;
@@ -127,6 +130,7 @@ if(checkOutTrigger){
       const total = parseInt(jumlah.value)
       const totalHarga = currentPrice * total
       totalPrice.textContent = totalHarga.toLocaleString("id-ID", {style: 'currency', currency: 'IDR'});
+      totalPriceForm.value = totalHarga;
     }
     
   checkOutTrigger.forEach(check => {
@@ -141,8 +145,10 @@ if(checkOutTrigger){
     const nama = document.querySelector('.nama');
     const gambar = document.querySelector('.gambar');
     const harga = document.querySelector('.harga');
+    const namaForm = document.getElementById('namaForm')
 
-    nama.innerHTML = name.textContent;
+    nama.textContent = name.textContent;
+    namaForm.value = name.textContent
     gambar.setAttribute('src', picture)
     harga.innerHTML = price;
     
@@ -150,21 +156,28 @@ if(checkOutTrigger){
     const hargaFix = parseInt(cleaned.replace(/\D/g, ""));
 
     currentPrice = hargaFix;
-
     updateHarga();
+    
+    //   const submitCheckout = document.getElementById('checkoutNow')
+  //   submitCheckout.addEventListener('click', function(){
+    
+  // })
 
     formCheckOut.classList.remove('hidden');
     formCheckOut.classList.add('flex')
   })
   
   const closeCheckOut = document.getElementById('close-checkout');
-  closeCheckOut.addEventListener('click', function(){
+  closeCheckOut.addEventListener('click', function(e){
+    e.preventDefault();
     formCheckOut.classList.remove('flex');
     formCheckOut.classList.add('hidden')
   })
-  })
-  
+  })  
+
+  fetchDataCheckOut();
 }
+
 
 FetchDataRegistration()
 FetchDataLogin()

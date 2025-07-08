@@ -71,7 +71,7 @@
   </div>
   </div>
 
-  <div id="checkout-modal" class="fixed z-50 inset-0 hidden items-center justify-center p-3 bg-black/40 backdrop-blur-md">
+  <form id="checkout-modal" class="fixed z-50 inset-0 hidden items-center justify-center p-3 bg-black/40 backdrop-blur-md" data-login="<%= user ? 'true' : 'false' %>">
     <div class="bg-white text-gray-800 rounded-md shadow text-center w-fit">
       <div class="font-bold text-xl bg-gray-800 flex justify-between items-center text-white p-2 rounded-t-md">
         <p class="m-auto text-center">Pesan Menu</p>
@@ -79,9 +79,10 @@
       </div>
       <div class="content p-3">
       <div class="flex gap-5 my-5">
-        <img src="/src/pic/Gyudon2.jpg" alt="" class="gambar w-40 rounded-xl">
+        <img src="/src/pic/Gyudon2.jpg" alt="" class="gambar w-40 border border-gray-400 shadow-md rounded-xl">
         <div class="info flex flex-col gap-5 text-center justify-center w-[80%] font-bold">
-          <p class="nama"></p>
+          <p class="nama text-xl"></p>
+          <input type="hidden" name="menuName" id="namaForm">
           <p>Harga: </p>
           <p class="harga font-normal"></p>
         </div>
@@ -93,7 +94,7 @@
         <p class="font-bold">Jumlah: </p>
         <div class="amount">
           <button class="decrement size-10 bg-gray-800 text-white btn">-</button>
-          <input type="number" class="input jumlah w-10 bg-white border border-gray-800 no-spinner" value="1">
+          <input type="number" name="jumlah" class="input jumlah w-10 bg-white border border-gray-800 no-spinner" value="1">
           <button class="increment size-10 bg-gray-800 text-white btn">+</button>
         </div>
       </div>        
@@ -102,11 +103,12 @@
         <div class="content flex gap-2 max-sm:text-sm">
           <p>Total: </p>
           <p id="totalPrice"></p>  
+          <input type="hidden" name="totalHarga" id="totalPriceForm">
         </div>
-        <button class="btn btn-primary max-sm:p-2">Pesan Sekarang!</button>
+        <button type="submit" class="btn btn-primary max-sm:p-2" id="checkoutNow">Pesan Sekarang!</button>
       </div>
     </div>
-  </div>
+  </form>
 
 
     <script src="/src/scripts/index.js" type="module"></script>
