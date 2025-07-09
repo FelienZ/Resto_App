@@ -21,14 +21,14 @@
       <% if (menu.length >= 1) { %>
       <% for(let index = 0; index < 4; index++) { %>
         <div class="card bg-white p-2 border pt-1 border-gray-300 overflow-x-hidden rounded-md h-fit text-xl sm:text-base justify-center text-black flex items-center" data-aos="flip-right">
-          <div class="flex items-center w-full gap-2 justify-center h-20 sm:text-sm">
+          <div class="flex items-center w-full gap-2 justify-around h-20 sm:text-sm">
             <img src="<%= menu[index].pic %>" alt="foto" class="w-30 max-sm:w-16 sm:w-16 rounded-md max-w-full" id="menuPic">
             <div class="content flex flex-col items-center max-sm:text-sm">
               <p class="font-bold" id="menuName"><%= menu[index].menuName %></p>
               <p id="menuPrice"><%= menu[index].price.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
             </div>
           </div>      
-          <button class="pesan w-full mt-1 md:py-1 rounded-md bg-gray-800 text-white cursor-pointer">Pesan</button>
+          <button class="btn pesan w-full mt-1 sm:py-1 size-fit rounded-md bg-gray-800 text-white cursor-pointer"><i class="fa-solid fa-cart-shopping"></i>Pesan</button>
         </div>
       <% } %>
       <% } %>

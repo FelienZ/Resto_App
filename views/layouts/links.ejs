@@ -48,14 +48,20 @@
             </div>
             <ul
                 tabindex="0"
-                class="menu menu-sm dropdown-content bg-base-100 text-white rounded-box z-99 mt-3 w-52 p-2 shadow">
+                class="menu menu-sm dropdown-content bg-gray-900 text-white rounded-box z-99 mt-3 w-52 p-2 shadow">
                 <li>
                 <a class="justify-between">
                     Profile
-                    <span class="badge badge-info badge-outline">View</span>
+                    <span class="badge badge-warning badge-outline">View</span>
                 </a>
                 </li>
-                <li><a>Checkout Pages</a></li>
+                <li>
+                    <% if (typeof(user) != 'undefined') { %>
+                      <a href="checkout" class="flex w-full justify-between"><p>Checkout Pages</p><span class="badge badge-outline badge-error"><i class="fa-solid fa-cart-shopping"></i><%= orders.length %></span></a>
+                    <% } else { %>    
+                    <a id="needLogin">Checkout Pages</a>
+                    <% } %>
+                </li>
                 <% if ( typeof(user) !== 'undefined' ) { %>
                     <li id="logout-trigger"><a>Logout</a></li>
                 <% } else { %>

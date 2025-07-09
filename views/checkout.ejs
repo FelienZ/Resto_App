@@ -1,0 +1,63 @@
+<section class="bg-gray-200 text-gray-800 flex justify-center w-full">
+    <div class="checkout flex flex-col items-center justify-center py-10 md:w-[90%] min-h-screen">
+        <p class="font-bold text-2xl text-center underline-offset-6 underline mb-10">List Pemesanan by <%= user.name %></p>
+        <% if (orders.length < 1) { %>
+             <p class="flex w-full justify-center to-gray-800 font-bold"> Pesanan Anda Kosong! </p>
+        <% } %>
+        <% orders.forEach(o => { %>
+            <div class="sm:hidden grid mb-5 w-full">
+                <div class="card bg-white p-5 rounded-md md:gap-3 md:text-xl border shadow-md hover:shadow-xl transition duration-200 border-gray-500 text-black" data-aos="zoom-in">
+                    <p class="font-bold">Menu : <span class="font-normal"><%= o.name %></span></p>
+                    <p class="font-bold">Total Item : <span class="font-normal"><%= o.totalItem %></span></p>
+                    <p class="font-bold">Total Harga : <span class="font-normal"><%= o.totalPrice.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></span></p>
+                    <hr class="w-full h-0.5 mx-auto my-4 bg-gray-300 border-0 rounded-sm md:my-10">
+                    <div class="button w-fit self-end">
+                        <button class="btn btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i>Edit</button>
+                        <button class="btn btn-error text-white"><i class="fa-solid fa-trash"></i>Hapus</button>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+        <div class="max-sm:hidden grid w-full max-sm:px-2">
+            <div class="overflow-x-auto ">
+                <table class="table w-full rounded-none bg bg-white max-sm:text-base text-gray-800 font-bold text-lg text-center">
+                    <!-- head -->
+                    <thead>
+                    <tr class="bg-gray-800 text-white font-bold text-lg border-b-2 max-sm:text-base border-gray-800 w-[90%]">
+                        <th>No.</th>
+                        <th>Menu</th>
+                        <th>Total Item</th>
+                        <th>Total Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for( let i = 0; i < orders.length; i++ ) { %>
+                    <tr>
+                        <th><%= i+1 %></th>
+                        <td><%= orders[i].name %></td>
+                        <td><%= orders[i].totalItem %></td>
+                        <td><%= orders[i].totalPrice.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %> %></td>
+                        <td class="flex justify-end items-center gap-2">
+                            <button class="btn btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                            <button class="btn btn-error text-white"><i class="fa-solid fa-trash"></i> Hapus</button>
+                        </td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+        <% if (orders.length > 0) { %>
+            <div class="summary font-bold flex flex-nowrap w-full justify-end items-center mt-5 gap-5" data-aos="fade">
+                <% let harga = 0 %>
+                <% orders.forEach(o => { %>
+                 <% harga += o.totalPrice %>
+                <% }) %>
+                <p>Total Harga: <%= harga.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
+                <button class="btn btn-primary max-sm:p-2"><i class="fa-solid fa-cart-shopping"></i>Pesan Sekarang!</button>
+            </div>
+        <% } %>
+        </div>
+    </div>
+</section>

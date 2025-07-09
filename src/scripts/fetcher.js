@@ -218,7 +218,7 @@ export async function fetchDataCheckOut() {
             if(result.type === 'success' && response.ok){
                 formCheckOut.reset();
                 setTimeout(() => {
-                    window.location.href = "/";
+                    window.location.reload()
                 }, 100);
             }
         }catch(err){

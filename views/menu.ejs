@@ -1,6 +1,6 @@
-    <main class="w-full screen flex justify-center bg-gray-200">
+    <main class="w-full flex justify-center bg-gray-200">
         <div class="interfaces flex flex-col items-center justify-center py-10 md:w-[90%] min-h-screen">
-        <h2 class="font-bold underline text-2xl text-gray-800">List Menu: </h2>
+        <h2 class="font-bold underline underline-offset-4 text-2xl text-gray-800">List Menu: </h2>
         <div class="animation flex gap-3 mt-5">
             <p class="text-gray-800 font-bold">Loading</p>
             <span class="loading loading-dots bg-gray-800 loading-xl"></span>
@@ -15,7 +15,7 @@
                     <img src="<%= menu[index].pic %>" alt="foto" class="rounded-md" id="menuPic">
                     <p class="font-bold text-gray-800" id="menuName"><%= nama = menu[index].menuName %></p>
                     <p id="menuPrice"><%= menu[index].price.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}) %></p>
-                    <button class="pesan w-full py-1 cursor-pointer rounded-md bg-gray-800 text-white">Pesan</button>
+                    <button class="btn pesan w-full sm:py-1 size-fit cursor-pointer rounded-md bg-gray-800 text-white"><i class="fa-solid fa-cart-shopping"></i>Pesan</button>
                     </div>
                 <% } %>
             </div>

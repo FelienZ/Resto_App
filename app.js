@@ -36,11 +36,26 @@ const Order = require('./models/Orders');
 dbConnect();
 
 app.get('/', async (req, res)=>{
+  const users = req.session.user;
   // res.status(200).sendFile(path.join(__dirname, 'resto.html'))
   const filePath = path.join(__dirname, 'data', 'menu.json');
-  // const testiPath = path.join(__dirname, 'data', 'testimonials.json');
   const review = await Reviews.find();
   const menu = JSON.parse(await fs.readFile(filePath, 'utf-8'));
+  // const testiPath = path.join(__dirname, 'data', 'testimonials.json');
+  if (users != undefined){
+    const userData = await User.findOne({ email: req.session.user.email });
+    const idUser = userData._id;
+    const orders = await Order.find({ id: idUser });
+    return res.render('resto', {
+      layout: 'layouts/main',
+      title: 'Resto App',
+      menu,
+      user: req.session.user,
+      // testimonials,
+      review,
+      orders,
+      pageTitle: 'Resto App' });
+  };
   // const testimonials = JSON.parse(await fs.readFile(testiPath, 'utf-8'));
   res.render('resto', {
     layout: 'layouts/main',
@@ -49,6 +64,7 @@ app.get('/', async (req, res)=>{
     user: req.session.user,
     // testimonials,
     review,
+    orders: [],
     pageTitle: 'Resto App' });
 });
 
@@ -56,14 +72,54 @@ app.get('/review', async (req, res)=>{
   // res.status(200).sendFile(path.join(__dirname, 'customer.html'));
   // const testiPath = path.join(__dirname, 'data', 'testimonials.json');
   // const testimonials = JSON.parse(await fs.readFile(testiPath, 'utf-8'));
+  const users = req.session.user;
   const review = await Reviews.find();
+  if (users != undefined){
+    const userData = await User.findOne({ email: req.session.user.email });
+    const idUser = userData._id;
+    const orders = await Order.find({ id: idUser });
+    return res.render('review', {
+      layout: 'layouts/main',
+      title: 'Customer Pages',
+      user: req.session.user,
+      // testimonials,
+      review,
+      orders,
+      pageTitle: 'Customer Pages' });
+  }
   res.render('review', {
     layout: 'layouts/main',
     title: 'Customer Pages',
     user: req.session.user,
     // testimonials,
     review,
+    orders: [],
     pageTitle: 'Customer Pages' });
+});
+
+app.get('/checkout', async (req, res)=>{
+  const users = req.session.user;
+  try {
+    if (users != undefined){
+      const userData = await User.findOne({ email: req.session.user.email });
+      const idUser = userData._id;
+      const orders = await Order.find({ id: idUser });
+      return res.render('checkout', {
+        layout: 'layouts/main',
+        title: 'Check Out Pages',
+        user: req.session.user,
+        orders,
+        pageTitle: 'Check Out Pages'
+      });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err){
+    res.status(500).json({
+      message: 'Gagal Menampilkan Data',
+      type: 'error'
+    });
+  }
 });
 
 app.post('/checkout', async (req, res)=>{
@@ -84,7 +140,7 @@ app.post('/checkout', async (req, res)=>{
       });
       await newOrders.save();
       res.status(201).json({
-        message: 'Berhasil Memesan!',
+        message: 'Berhasil Menambahkan Pesanan!',
         type: 'success'
       });
     }
@@ -131,12 +187,25 @@ app.post('/review', async (req, res)=>{
 app.get('/menu', async (req, res)=>{
   // res.status(200).sendFile(path.join(__dirname, 'menu.html'));
   const filePath = path.join(__dirname, 'data', 'menu.json');
-
   const menu = JSON.parse(await fs.readFile(filePath, 'utf-8'));
+  const users = req.session.user;
+  if (users != undefined){
+    const userData = await User.findOne({ email: req.session.user.email });
+    const idUser = userData._id;
+    const orders = await Order.find({ id: idUser });
+    return res.render('menu', {
+      layout: 'layouts/main',
+      title: 'Menu Pages',
+      user: req.session.user,
+      menu,
+      orders,
+      pageTitle: 'Menu Pages' });
+  }
   res.render('menu', {
     layout: 'layouts/main',
     title: 'Menu Pages',
     user: req.session.user,
+    orders: [],
     menu,
     pageTitle: 'Menu Pages' });
 });
