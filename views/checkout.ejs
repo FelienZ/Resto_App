@@ -5,12 +5,12 @@
              <p class="flex w-full justify-center to-gray-800 font-bold"> Pesanan Anda Kosong! </p>
         <% } %>
         <% orders.forEach(o => { %>
-            <div class="sm:hidden grid mb-5 w-full">
+            <div class="sm:hidden grid mb-5 w-full item-order ">
                 <div class="card card-detail bg-white p-5 rounded-md md:gap-3 md:text-xl border shadow-md hover:shadow-xl transition duration-200 border-gray-500 text-black" data-aos="zoom-in">
-                    <p class="font-bold">Menu : <span class="font-normal" id="menuName"><%= o.name %></span></p>
-                    <p class="font-bold">Total Item : <span class="font-normal" id="menuItem"><%= o.totalItem %></span></p>
+                    <p class="font-bold">Menu : <span class="font-normal menuName" id="menuName"><%= o.name %></span></p>
+                    <p class="font-bold">Total Item : <span class="font-normal menuItem" id="menuItem"><%= o.totalItem %></span></p>
                     <p class="hidden">Harga Satuan : <span id="hargaSatuan"><%= o.unitPrice.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></span></p>
-                    <p class="font-bold">Total Harga : <span class="font-normal" id="menuPrice"><%= o.totalPrice.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></span></p>
+                    <p class="font-bold">Total Harga : <span class="font-normal menuPrice" id="menuPrice"><%= o.totalPrice.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></span></p>
                     <hr class="w-full h-0.5 mx-auto my-4 bg-gray-300 border-0 rounded-sm md:my-10">
                     <div class="button w-fit self-end">
                         <button class="btn edit-pesanan btn-warning text-white" data-id="<%= o._id %>"><i class="fa-solid fa-pen-to-square"></i>Edit</button>
@@ -34,12 +34,12 @@
                     </thead>
                     <tbody>
                     <% for( let i = 0; i < orders.length; i++ ) { %>
-                    <tr class="card-detail">
+                    <tr class="card-detail item-order">
                         <th><%= i+1 %></th>
-                        <td id="menuName"><%= orders[i].name %></td>
-                        <td id="menuItem"><%= orders[i].totalItem %></td>
+                        <td class="menuName" id="menuName"><%= orders[i].name %></td>
+                        <td class="menuItem" id="menuItem"><%= orders[i].totalItem %></td>
                         <td class="hidden">Harga Satuan : <span id="hargaSatuan"><%= orders[i].unitPrice.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></span></ptd>
-                        <td id="menuPrice"><%= orders[i].totalPrice.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %> %></td>
+                        <td class="menuPrice" id="menuPrice"><%= orders[i].totalPrice.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %> %></td>
                         <td class="flex justify-end items-center gap-2">
                             <button class="btn btn-warning edit-pesanan text-white" data-id="<%= orders[i]._id %>"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
                             <button class="btn btn-error hapus-pesanan text-white" data-id="<%= orders[i]._id %>"><i class="fa-solid fa-trash"></i> Hapus</button>
@@ -56,8 +56,8 @@
                 <% orders.forEach(o => { %>
                  <% harga += o.totalPrice %>
                 <% }) %>
-                <p>Total Harga: <%= harga.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
-                <button class="btn btn-primary max-sm:p-2"><i class="fa-solid fa-cart-shopping"></i>Pesan Sekarang!</button>
+                <p id="priceSummary">Total Harga: <%= harga.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
+                <button class="btn btn-primary max-sm:p-2" id="direct-checkout"><i class="fa-solid fa-cart-shopping"></i>Pesan Sekarang!</button>
             </div>
         <% } %>
         </div>

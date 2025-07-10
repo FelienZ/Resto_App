@@ -292,6 +292,51 @@ if(deleteOrders){
   })
 }
 
+const directCheckout = document.getElementById('direct-checkout');
+if(directCheckout){ 
+  let menu = [];
+  let item = [];
+  let totalHarga = document.getElementById('priceSummary').textContent
+  const visibleData = [...document.querySelectorAll('.item-order')]
+  .filter(items => window.getComputedStyle(items).display !== 'none');
+  console.log(visibleData)
+
+  visibleData.forEach(data => {
+    const listMenu = data.querySelectorAll('.menuName');
+    const listItem = data.querySelectorAll('.menuItem');
+    listMenu.forEach(m => menu.push(m.textContent))
+    listItem.forEach(i => item.push(i.textContent))
+  })
+
+  directCheckout.addEventListener('click',function(){
+    // function generateMessage(idx){
+    //   let pesan = `
+    //   Pesanan ${idx} :\n
+    //   Menu: ${menu[idx]},\n
+    //   Jumlah: ${item[idx]}`
+    //   const directWA = `https://wa.me/6281229564138?text=Halo, Saya ingin memesan : ${encodeURIComponent(pesan)}, Total: ${encodeURIComponent(totalHarga)}`;
+    //   setTimeout(() => {
+    //     window.location.href = directWA;
+    //   }, 400);
+    // }
+    let pesan = `Halo, saya ingin memesan: \n`
+    for (let i = 0; i < visibleData.length; i++) {
+      // generateMessage(i)
+      pesan += `
+      • Pesanan ${i+1}:
+      Menu: ${menu[i]},
+      Jumlah: ${item[i]}\n
+      ` 
+    }
+    
+    pesan += `${totalHarga}`;
+    const directWA = `https://wa.me/6281229564138?text=${encodeURIComponent(pesan)}`;
+      setTimeout(() => {
+        window.location.href = directWA;
+      }, 400);
+  })
+}
+
 FetchDataRegistration()
 FetchDataLogin()
 FetchDataLogout()
