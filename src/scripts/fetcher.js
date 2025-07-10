@@ -189,6 +189,7 @@ export async function fetchDataCheckOut() {
         const isLogin = formCheckOut.dataset.login === "true";
         const data = {
             nama: formData.get('menuName').valueOf(menuName),
+            hargaSatuan : formData.get('hargaSatuan'),
             jumlah : formData.get('jumlah'),
             hargaTotal : formData.get('totalHarga')
         }
@@ -228,11 +229,92 @@ export async function fetchDataCheckOut() {
             gravity: "top",
             position: "center",
             style: { 
-                ackground: "red", 
+                background: "red", 
                 color: "white" }
             }).showToast();
         }
-        
     })
+}
 
+export async function fetchUpdateCheckout(id) {
+    const formUpdate = document.getElementById('edit-modal');
+    formUpdate.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(formUpdate) 
+        const data = ({
+            jumlah: formData.get('jumlahEdit'),
+            hargaTotal: formData.get('totalHargaEdit') 
+        })
+        const response = await fetch(`/checkout/${id}`,{
+            method: 'PUT',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(data)
+        })
+        try{
+            const result = await response.json();
+            Toastify({
+            text: result.message,
+            duration: 2000,
+            gravity: 'top',
+            position: 'center',
+            style:{
+                background: result.type === 'error' ? 'red' : 'lime',
+                color: 'white'
+            }
+            }).showToast();
+            if(result.type === 'success' && response.ok){
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000);
+            }
+        }catch(err){
+            Toastify({
+            text: "Gagal Menyimpan!",
+            duration: 2000,
+            gravity: "top",
+            position: "center",
+            style: { 
+                background: "red", 
+                color: "white" }
+            }).showToast();
+        }
+    })
+}
+
+export async function fetchDeleteCheckout(id) {
+    const confirmModal = document.getElementById('confirm-modal');
+    confirmModal.addEventListener('click', async function() {
+        try {
+            const response = await fetch(`/checkout/${id}`,{
+                method: 'DELETE'
+            })
+            const result = await response.json();
+            Toastify({
+            text: result.message,
+            duration: 2000,
+            gravity: 'top',
+            position: 'center',
+            style:{
+                background: result.type === 'error' ? 'red' : 'lime',
+                color: 'white'
+            }
+            }).showToast();
+            if(result.type === 'success' && response.ok){
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000);
+            }
+        } catch (error) {
+            Toastify({
+            text: 'Gagal!',
+            duration: 2000,
+            gravity: 'top',
+            position: 'center',
+            style:{
+                background: 'red',
+                color: 'white'
+            }
+            }).showToast();
+        }
+    })
 }

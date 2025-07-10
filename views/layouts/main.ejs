@@ -84,6 +84,7 @@
           <p class="nama text-xl"></p>
           <input type="hidden" name="menuName" id="namaForm">
           <p>Harga: </p>
+          <input type="hidden" name="hargaSatuan" id="unitPriceForm" value="0">
           <p class="harga font-normal"></p>
         </div>
       </div>
@@ -110,7 +111,51 @@
     </div>
   </form>
 
+    <form id="edit-modal" class="fixed z-50 inset-0 hidden items-center justify-center p-3 bg-black/40 backdrop-blur-md">
+    <div class="bg-white text-gray-800 rounded-md shadow text-center w-fit">
+      <div class="font-bold text-xl bg-gray-800 flex justify-between items-center text-white p-2 rounded-t-md">
+        <p class="m-auto text-center">Pesan Menu</p>
+        <button class="px-1 cursor-pointer" id="close-checkout-edit">&times;</button>
+      </div>
+      <div class="content p-3">
+        <div class="info flex flex-col gap-5 text-center justify-center items-start px-5 font-bold">
+          <p class="namaEdit text-xl"></p>
+          <input type="hidden" name="menuNameEdit" id="namaFormEdit">
+          <div class="flex gap-5">
+            <p>Harga: </p>
+            <p class="hargaEdit font-normal"></p>
+          </div>
+        </div>
+      <div class="deskripsiEdit my-5 px-5">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio, odit.
+      </div>
+      <div class="flex justify-end gap-3 items-center">
+        <p class="font-bold">Jumlah: </p>
+        <div class="amountEdit">
+          <button class="decrementEdit size-10 bg-gray-800 text-white btn">-</button>
+          <input type="number" name="jumlahEdit" class="input jumlahEdit w-10 bg-white border border-gray-800 no-spinner">
+          <button class="incrementEdit size-10 bg-gray-800 text-white btn">+</button>
+        </div>
+      </div>        
+      </div>
+      <div class="font-bold text-xl p-3 flex justify-between items-center rounded-b-md">
+        <div class="content flex gap-2 max-sm:text-sm">
+          <p>Total: </p>
+          <p id="totalPriceEdit"></p>  
+          <input type="hidden" name="totalHargaEdit" id="totalPriceFormEdit">
+        </div>
+        <button type="submit" class="btn btn-primary max-sm:p-2" id="checkoutNowEdit">Simpan</button>
+      </div>
+    </div>
+  </form>
 
+  <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm">
+  <div class="bg-white text-gray-800 p-4 rounded shadow text-center">
+    <p class="mb-4 font-bold">Konfirmasi Hapus</p>
+    <button id="confirm-cancel" class="btn btn-active mr-2">Hapus</button>
+    <button id="cancel-cancel" class="btn btn-warning">Batal</button>
+  </div>
+  </div>
     <script src="/src/scripts/index.js" type="module"></script>
     <script src="/src/aos/dist/aos.js"></script>
     <script>

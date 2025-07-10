@@ -1,4 +1,4 @@
-import { FetchDataLogout, FetchDataRegistration, FetchDataLogin, fetchDataReview, fetchDataCheckOut }  from "./fetcher.js";
+import { FetchDataLogout, FetchDataRegistration, FetchDataLogin, fetchDataReview, fetchDataCheckOut, fetchUpdateCheckout, fetchDeleteCheckout }  from "./fetcher.js";
 
 const toggleHamburger = document.getElementById('nav-toggle');
 const menu = document.getElementById('nav-menu');
@@ -104,6 +104,7 @@ if(checkOutTrigger){
     const add = document.querySelector('.increment');
     const reduce = document.querySelector('.decrement');
     const totalPrice = document.getElementById('totalPrice');
+    const unitPrice = document.getElementById('unitPriceForm');
     const totalPriceForm = document.getElementById('totalPriceForm');
     let currentPrice = 0;
     updateHarga();
@@ -156,6 +157,7 @@ if(checkOutTrigger){
     const hargaFix = parseInt(cleaned.replace(/\D/g, ""));
 
     currentPrice = hargaFix;
+    unitPrice.value = currentPrice;
     updateHarga();
     
     //   const submitCheckout = document.getElementById('checkoutNow')
@@ -178,6 +180,117 @@ if(checkOutTrigger){
   fetchDataCheckOut();
 }
 
+const editOrders = document.querySelectorAll('.edit-pesanan');
+if(editOrders){
+  function editHandler(e){
+      const detail = e.closest('.card-detail');
+      const id = detail.querySelector('.edit-pesanan').dataset.id;
+      fetchUpdateCheckout(id);
+  }
+  const formCheckOut = document.getElementById('edit-modal');
+  let jumlah = document.querySelector('.jumlahEdit');
+    const add = document.querySelector('.incrementEdit');
+    const reduce = document.querySelector('.decrementEdit');
+    const totalPrice = document.getElementById('totalPriceEdit');
+    const totalPriceForm = document.getElementById('totalPriceFormEdit');
+    let currentPrice = 0;
+
+    updateHarga();
+    
+    add.addEventListener('click', function(e){
+      e.preventDefault();
+      if(jumlah.value < 10){
+        let amount = parseInt(jumlah.value)
+        jumlah.value = ++amount;
+        // totalPrice.textContent = (currentPrice + (jumlah.value *hargaFix)).toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})
+        updateHarga();
+      }
+    })
+    reduce.addEventListener('click', function(e){
+      e.preventDefault();
+      if(jumlah.value > 1){
+        let amount = parseInt(jumlah.value)
+        jumlah.value = --amount;
+        // totalPrice.textContent = (currentPrice + (jumlah.value *hargaFix)).toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})
+        updateHarga();
+      }
+    })
+
+    function updateHarga(){
+      const total = parseInt(jumlah.value)
+      const totalHarga = currentPrice * total
+      totalPrice.textContent = totalHarga.toLocaleString("id-ID", {style: 'currency', currency: 'IDR'});
+      totalPriceForm.value = totalHarga;
+    }
+
+  editOrders.forEach(edit =>{
+    edit.addEventListener('click', function(e){
+      e.preventDefault()
+      editHandler(this)
+      const detail = this.closest('.card-detail');
+      // console.log(detail)
+      const name = detail.querySelector('#menuName').textContent;
+      const totalItem = detail.querySelector('#menuItem').textContent;
+      const unitPrice = detail.querySelector('#hargaSatuan').textContent;
+      const totalPrice = detail.querySelector('#menuPrice').textContent
+      const jumlahForm = formCheckOut.querySelector('.jumlahEdit');
+      const id = detail.querySelector('.edit-pesanan').dataset.id;
+      jumlahForm.setAttribute('value', Number(totalItem))
+
+      const nama = document.querySelector('.namaEdit');
+      const harga = document.querySelector('.hargaEdit');
+      const namaForm = document.getElementById('namaFormEdit');
+      // console.log(id)
+      nama.textContent = name;
+      namaForm.textContent = name;
+      harga.textContent = unitPrice;
+      
+      const cleaned = unitPrice.replace(",00", "");
+      const hargaFix = parseInt(cleaned.replace(/\D/g, ""));
+      currentPrice = hargaFix
+
+      updateHarga();
+
+      formCheckOut.classList.remove('hidden');
+      formCheckOut.classList.add('flex')
+    })
+
+  const closeCheckOut = document.getElementById('close-checkout-edit');
+  closeCheckOut.addEventListener('click', function(e){
+    e.preventDefault();
+    formCheckOut.classList.remove('flex');
+    formCheckOut.classList.add('hidden')
+  })
+  })
+}
+
+const deleteOrders = document.querySelectorAll('.hapus-pesanan');
+if(deleteOrders){
+  const confirmModal = document.getElementById('confirm-modal');
+  const confirm = document.getElementById('confirm-cancel');
+  const cancel = document.getElementById('cancel-cancel');
+  function confirmCancel(id){
+    fetchDeleteCheckout(id)
+  }
+  function cancelCancel(){
+    confirmModal.classList.remove('flex');
+    confirmModal.classList.add('hidden');
+  }
+  deleteOrders.forEach(deletes => {
+    deletes.addEventListener('click', function(){
+      const id = deletes.dataset.id;
+      confirmModal.classList.remove('hidden');
+      confirmModal.classList.add('flex')
+
+      confirm.addEventListener('click', function(){
+        confirmCancel(id)
+      })
+      cancel.addEventListener('click',function(){
+        cancelCancel()
+      })
+    })
+  })
+}
 
 FetchDataRegistration()
 FetchDataLogin()

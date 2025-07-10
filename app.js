@@ -123,7 +123,7 @@ app.get('/checkout', async (req, res)=>{
 });
 
 app.post('/checkout', async (req, res)=>{
-  const { nama, jumlah, hargaTotal  } = req.body;
+  const { nama, hargaSatuan, jumlah, hargaTotal  } = req.body;
   const users = req.session.user;
   try {
     const createdAt = new Date().toISOString();
@@ -134,6 +134,7 @@ app.post('/checkout', async (req, res)=>{
         id: idUser,
         userName: req.session.user.name,
         name: nama,
+        unitPrice: hargaSatuan,
         totalItem: jumlah,
         totalPrice: hargaTotal,
         createdAt,
@@ -150,6 +151,43 @@ app.post('/checkout', async (req, res)=>{
       message: 'Gagal menyimpan review',
       type: 'error' });
 
+  }
+});
+
+app.put('/checkout/:id', async (req, res)=>{
+  const { jumlah, hargaTotal } = req.body;
+  const ordersId = req.params.id;
+  await Order.findByIdAndUpdate(ordersId, {
+    totalItem: jumlah,
+    totalPrice: hargaTotal,
+    createdAt: new Date().toISOString()
+  });
+  try {
+    res.status(201).json({
+      message: 'Berhasil Memperbarui Pesanan!',
+      type: 'success'
+    });
+  } catch (err){
+    res.status(500).json({
+      message: 'Gagal Memperbarui Pesanan!',
+      type: 'error'
+    });
+  }
+});
+
+app.delete('/checkout/:id', async (req, res)=>{
+  const ordersId = req.params.id;
+  await Order.findByIdAndDelete(ordersId);
+  try {
+    res.status(201).json({
+      message: 'Berhasil Menghapus Pesanan!',
+      type: 'success'
+    });
+  } catch (err){
+    res.status(500).json({
+      message: 'Gagal Menghapus Pesanan!',
+      type: 'error'
+    });
   }
 });
 
