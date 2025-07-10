@@ -322,19 +322,29 @@ if(directCheckout){
     let pesan = `Halo, saya ingin memesan: \n`
     for (let i = 0; i < visibleData.length; i++) {
       // generateMessage(i)
-      pesan += `
-      • Pesanan ${i+1}:
-      Menu: ${menu[i]},
-      Jumlah: ${item[i]}\n
-      ` 
+      pesan += `\n  • Pesanan ${i+1}:\n     Menu: ${menu[i]},\n     Jumlah: ${item[i]}\n` 
     }
     
-    pesan += `${totalHarga}`;
+    pesan += `\n${totalHarga}`;
     const directWA = `https://wa.me/6281229564138?text=${encodeURIComponent(pesan)}`;
       setTimeout(() => {
         window.location.href = directWA;
       }, 400);
   })
+}
+
+const btnCheckOutDefault = document.getElementById('needLogin');
+if(btnCheckOutDefault){
+  btnCheckOutDefault.addEventListener('click', function(){
+  Toastify({
+      text: 'Silakan Login Terlebih Dahulu!',
+      backgroundColor: 'darkorange',
+      position:'center',
+      duration: 2000
+    }).showToast();
+    formLogin.classList.remove('hidden');
+    formLogin.classList.add('flex');
+})
 }
 
 FetchDataRegistration()

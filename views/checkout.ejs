@@ -34,7 +34,7 @@
                     </thead>
                     <tbody>
                     <% for( let i = 0; i < orders.length; i++ ) { %>
-                    <tr class="card-detail item-order">
+                    <tr class="card-detail max-sm:hidden item-order">
                         <th><%= i+1 %></th>
                         <td class="menuName" id="menuName"><%= orders[i].name %></td>
                         <td class="menuItem" id="menuItem"><%= orders[i].totalItem %></td>
@@ -56,7 +56,7 @@
                 <% orders.forEach(o => { %>
                  <% harga += o.totalPrice %>
                 <% }) %>
-                <p id="priceSummary">Total Harga: <%= harga.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
+                <p id="priceSummary">Total: <%= harga.toLocaleString('id-ID', {style: 'currency', currency:'IDR'}) %></p>
                 <button class="btn btn-primary max-sm:p-2" id="direct-checkout"><i class="fa-solid fa-cart-shopping"></i>Pesan Sekarang!</button>
             </div>
         <% } %>
