@@ -383,6 +383,9 @@ input.addEventListener('input', function(e){
   if(keyword.length >= 3){
     filterData.forEach(data => {
       const container = document.createElement('tr');
+      container.dataset.itemId = data.id
+      const idItem = container.dataset.itemId
+      
       container.className = 'w-full p-2 border-b border-gray-800';
       container.innerHTML = `
         <td class="w-full flex items-center text-nowrap justify-between">
@@ -391,29 +394,39 @@ input.addEventListener('input', function(e){
         </td>`;
       resultBox.appendChild(container);
       
-
       container.addEventListener('click',function(){
-        const newSearch = input.value.trim();
-        setTimeout(() => {
-          window.location.href = `/menu?search=${encodeURIComponent(newSearch)}`;
-        }, 1000);
-        if(newSearch) {
-          const card = document.querySelectorAll('.card')
-      }
+        if (idItem) {
+        window.location.href = `/menu?id=${encodeURIComponent(idItem)}`;
+        }
       })
       const btnSearch = document.getElementById('btnSearch')
       btnSearch.addEventListener('click', function(){
-        const newSearch = input.value.trim();
-        setTimeout(() => {
-          window.location.href = `/menu?search=${encodeURIComponent(newSearch)}`;
-        }, 1000);
-        if(newSearch) {
-          const card = document.querySelectorAll('.card')
-      }
+        if (idItem) {
+        window.location.href = `/menu?id=${encodeURIComponent(idItem)}`;
+        }
       })
     })
   }
+
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  
+  if (!id) return;
+
+  setTimeout(() => {
+    const target = document.querySelector(`.card[data-id="${id}"]`);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.classList.add('bg-yellow-200');
+      setTimeout(() => {
+        target.classList.remove('bg-yellow-200');
+      }, 4000);
+    }
+  }, 2000);
+});
 
 FetchDataRegistration()
 FetchDataLogin()
