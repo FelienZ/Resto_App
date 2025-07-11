@@ -73,6 +73,8 @@ app.get('/review', async (req, res)=>{
   // const testiPath = path.join(__dirname, 'data', 'testimonials.json');
   // const testimonials = JSON.parse(await fs.readFile(testiPath, 'utf-8'));
   const users = req.session.user;
+  const filePath = path.join(__dirname, 'data', 'menu.json');
+  const menu = JSON.parse(await fs.readFile(filePath, 'utf-8'));
   const review = await Reviews.find();
   if (users != undefined){
     const userData = await User.findOne({ email: req.session.user.email });
@@ -82,6 +84,7 @@ app.get('/review', async (req, res)=>{
       layout: 'layouts/main',
       title: 'Customer Pages',
       user: req.session.user,
+      menu,
       // testimonials,
       review,
       orders,
@@ -93,6 +96,7 @@ app.get('/review', async (req, res)=>{
     user: req.session.user,
     // testimonials,
     review,
+    menu,
     orders: [],
     pageTitle: 'Customer Pages' });
 });
@@ -103,12 +107,15 @@ app.get('/checkout', async (req, res)=>{
     if (users != undefined){
       const userData = await User.findOne({ email: req.session.user.email });
       const idUser = userData._id;
+      const filePath = path.join(__dirname, 'data', 'menu.json');
+      const menu = JSON.parse(await fs.readFile(filePath, 'utf-8'));
       const orders = await Order.find({ id: idUser });
       return res.render('checkout', {
         layout: 'layouts/main',
         title: 'Check Out Pages',
         user: req.session.user,
         orders,
+        menu,
         pageTitle: 'Check Out Pages'
       });
     } else {
