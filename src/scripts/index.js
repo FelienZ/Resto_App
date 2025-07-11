@@ -347,6 +347,74 @@ if(btnCheckOutDefault){
 })
 }
 
+const input = document.getElementById('searchInput');
+const resultBox = document.getElementById('searchResult');
+
+input.addEventListener('input', function(e){
+  e.preventDefault()
+  const keyword = input.value.toLowerCase();
+  resultBox.innerHTML = '';
+
+  if (keyword.trim() === '') {
+    resultBox.classList.add('hidden');
+    return;
+  }
+
+  if(keyword.length < 3){
+    resultBox.innerHTML = `<div class="w-full flex justify-between p-2 items-center">
+    <p>Masukkan minimal 3 karakter</p>
+    </div>`
+    resultBox.classList.remove('hidden');
+    resultBox.classList.add('flex');
+    return;
+  }
+  const listMenu = document.getElementById('menuData').textContent;
+  const dataMenu = JSON.parse(listMenu)
+  const filterData = dataMenu.filter(data => data.menuName.toLowerCase().includes(keyword));
+  if(filterData.length < 1){
+    resultBox.textContent = 'Menu Tidak Tersedia'
+    resultBox.classList.remove('hidden');
+    resultBox.classList.add('flex');
+    return;
+  }
+    resultBox.classList.remove('hidden');
+    resultBox.classList.add('flex'); 
+
+  if(keyword.length >= 3){
+    filterData.forEach(data => {
+      const container = document.createElement('tr');
+      container.className = 'w-full p-2 border-b border-gray-800';
+      container.innerHTML = `
+        <td class="w-full flex items-center text-nowrap justify-between">
+          <p class="text-sm">${data.menuName}</p>
+          <img src="${data.pic}" alt="${data.menuName}" class="w-10">
+        </td>`;
+      resultBox.appendChild(container);
+      
+
+      container.addEventListener('click',function(){
+        const newSearch = input.value.trim();
+        setTimeout(() => {
+          window.location.href = `/menu?search=${encodeURIComponent(newSearch)}`;
+        }, 1000);
+        if(newSearch) {
+          const card = document.querySelectorAll('.card')
+      }
+      })
+      const btnSearch = document.getElementById('btnSearch')
+      btnSearch.addEventListener('click', function(){
+        const newSearch = input.value.trim();
+        setTimeout(() => {
+          window.location.href = `/menu?search=${encodeURIComponent(newSearch)}`;
+        }, 1000);
+        if(newSearch) {
+          const card = document.querySelectorAll('.card')
+      }
+      })
+    })
+  }
+})
+
 FetchDataRegistration()
 FetchDataLogin()
 FetchDataLogout()

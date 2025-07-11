@@ -158,6 +158,9 @@
   </div>
     <script src="/src/scripts/index.js" type="module"></script>
     <script src="/src/aos/dist/aos.js"></script>
+    <script id="menuData" type="application/json">
+      <%- JSON.stringify(menu) %>
+    </script>
     <script>
     AOS.init({
       offset: 200,
@@ -166,7 +169,6 @@
       delay: 100,
     });
     </script>
-
 
 </body>
 </html>
