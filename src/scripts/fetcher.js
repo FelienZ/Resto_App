@@ -318,3 +318,50 @@ export async function fetchDeleteCheckout(id) {
         }
     })
 }
+
+export async function fetchUpdateUser() {
+    const formUpdateUser = document.getElementById('editField');
+    formUpdateUser.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(formUpdateUser);
+        const data = {
+            newName: formData.get('newName'),
+            newEmail: formData.get('newEmail')
+        }
+        console.log(data)
+        const response = await fetch('/profile',{
+            method: 'PUT',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify(data)
+        })
+        try {
+            const result = await response.json();
+            Toastify({
+            text: result.message,
+            duration: 2000,
+            gravity: 'top',
+            position: 'center',
+            style:{
+                background: result.type === 'error' ? 'red' : 'lime',
+                color: 'white'
+            }
+            }).showToast();
+            if(result.type === 'success' && response.ok){
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000);
+            }
+        } catch (error) {
+            Toastify({
+            text: "Gagal Update!",
+            duration: 2000,
+            gravity: 'top',
+            position: 'center',
+            style:{
+                background: 'red',
+                color: 'white'
+            }
+            }).showToast();
+        }
+    })
+}

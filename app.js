@@ -68,6 +68,73 @@ app.get('/', async (req, res)=>{
     pageTitle: 'Resto App' });
 });
 
+app.get('/profile', async (req, res)=>{
+  const users = req.session.user;
+  const filePath = path.join(__dirname, 'data', 'menu.json');
+  const menu = JSON.parse(await fs.readFile(filePath, 'utf-8'));
+  if (users != undefined){
+    const userData = await User.findOne({ email: req.session.user.email });
+    const idUser = userData._id;
+    const orders = await Order.find({ id: idUser });
+    return res.render('profile', {
+      layout: 'layouts/main',
+      title: 'Profile Pages',
+      user: users,
+      menu,
+      idUser,
+      orders,
+      pageTitle: 'Profile Pages'
+    });
+  } else {
+    return res.redirect('/');
+  }
+});
+
+app.put('/profile', async (req, res)=>{
+  const { newName, newEmail } = req.body;
+  if (!newName || !newEmail){
+    return res.status(400).json({
+      message: 'Silahkan Masukkan Data Dulu',
+      type: 'error'
+    });
+  }
+
+  try {
+    const userData = await User.findOne({ email: req.session.user.email });
+    const idUser = userData._id;
+
+    const isExistUser = await User.findOne({ email: newEmail });
+    if (isExistUser) {
+      return res.status(400).json({
+        message: 'Email sudah digunakan',
+        type: 'error'
+      });
+    }
+
+    const updateData = await User.findByIdAndUpdate(idUser, {
+      name: newName,
+      email: newEmail
+    }, {
+      new: true
+    });
+
+    req.session.user.name = updateData.name;
+    req.session.user.email = updateData.email;
+    res.status(200).json({
+      message: 'Berhasil Update Data',
+      type: 'success',
+      user: updateData
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Kesalahan Dalam Update Data',
+      type: 'error'
+    });
+  }
+
+});
+
+
 app.get('/review', async (req, res)=>{
   // res.status(200).sendFile(path.join(__dirname, 'customer.html'));
   // const testiPath = path.join(__dirname, 'data', 'testimonials.json');
@@ -83,7 +150,7 @@ app.get('/review', async (req, res)=>{
     return res.render('review', {
       layout: 'layouts/main',
       title: 'Customer Pages',
-      user: req.session.user,
+      user: users,
       menu,
       // testimonials,
       review,

@@ -55,12 +55,21 @@
             <ul
                 tabindex="0"
                 class="menu menu-sm dropdown-content bg-gray-900 text-white rounded-box z-99 mt-3 w-52 p-2 shadow">
+                    <% if (typeof(user) != 'undefined') { %>
                 <li>
-                <a class="justify-between">
+                <a class="justify-between" href="profile">
                     Profile
-                    <span class="badge badge-warning badge-outline">View</span>
+                <span class="badge badge-warning badge-outline">View</span>
                 </a>
                 </li>
+                    <% } else { %>
+                <li>
+                <a class="justify-between" id="profileNeedLogin">
+                    Profile
+                <span class="badge badge-warning badge-outline">View</span>
+                </a> 
+                </li>
+                     <% } %>
                 <li>
                     <% if (typeof(user) != 'undefined') { %>
                       <a href="checkout" class="flex w-full justify-between"><p>Checkout Pages</p><span class="badge badge-outline badge-error"><i class="fa-solid fa-cart-shopping"></i><%= orders.length %></span></a>

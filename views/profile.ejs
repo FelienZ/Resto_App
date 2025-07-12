@@ -1,0 +1,39 @@
+<section class="h-screen bg-gray-100 w-full">
+    <div class="container grid grid-cols-3 w-[80%] gap-2 m-auto h-screen p-10 overflow-auto">
+        <div class="profileActive flex flex-col text-gray-800 border border-gray-400 p-5 overflow-auto">
+            <div class="head flex gap-5 items-center max-w-full">
+            <div class="avatar avatar-placeholder">
+            <div class="bg-gray-800 text-neutral-content w-24 rounded-full">
+                <span class="text-3xl text-white"><%= user.name[0].toUpperCase() %></span>
+            </div>
+            </div>
+            <p class="text-2xl font-bold text-nowrap"><%= user.name %>'s Profile</p>
+            </div>
+            <div class="infoUser flex flex-col my-5">
+            <label class="font-bold">Name:</label>
+            <input type="text" placeholder="<%= user.name %>" class="border border-gray-500 mb-3 rounded-md p-1 bg-white text-gray-800" disabled />
+            <label class="font-bold">Email:</label>
+            <input type="email" placeholder="<%= user.email %>" class="border border-gray-500 mb-3 rounded-md p-1 bg-white text-gray-800" disabled />
+            <div class="text-gray-600">
+                <p>User ID:</p>
+                <p><%= idUser %></p> 
+            </div>
+            </div>
+        </div>
+        <form id="editField" class="text-gray-800 col-span-2 justify-between border border-gray-400 flex flex-col p-10">
+            <div class="atas flex flex-col gap-1">
+            <p class="font-bold text-center text-2xl mb-3">
+                Edit My Profile
+            </p>
+            <label for="newName" class="font-bold">Name:</label>
+            <input type="text" placeholder="Masukkan Username Baru" name="newName" class="border border-gray-500 mb-3 rounded-md p-2 bg-white text-gray-800" />
+            <label for="newEmail" class="font-bold">Email:</label>
+            <input type="email" placeholder="Masukkan Email Baru" name="newEmail" class="border border-gray-500 mb-3 rounded-md p-2 bg-white text-gray-800" />
+            </div>
+
+            <div class="bawah self-end">
+                <button class="btn btn-primary w-fit self-end" id="simpanUpdate">Simpan</button>
+            </div>
+        </form>
+    </div>
+</section>

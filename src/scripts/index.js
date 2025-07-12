@@ -1,4 +1,4 @@
-import { FetchDataLogout, FetchDataRegistration, FetchDataLogin, fetchDataReview, fetchDataCheckOut, fetchUpdateCheckout, fetchDeleteCheckout }  from "./fetcher.js";
+import { FetchDataLogout, FetchDataRegistration, FetchDataLogin, fetchDataReview, fetchDataCheckOut, fetchUpdateCheckout, fetchDeleteCheckout, fetchUpdateUser }  from "./fetcher.js";
 
 const toggleHamburger = document.getElementById('nav-toggle');
 const menu = document.getElementById('nav-menu');
@@ -386,7 +386,7 @@ input.addEventListener('input', function(e){
       container.dataset.itemId = data.id
       const idItem = container.dataset.itemId
       
-      container.className = 'w-full p-2 border-b border-gray-800';
+      container.className = 'w-full p-2 border-b border-gray-800 hover:bg-gray-300';
       container.innerHTML = `
         <td class="w-full flex items-center text-nowrap justify-between">
           <p class="text-sm">${data.menuName}</p>
@@ -395,15 +395,19 @@ input.addEventListener('input', function(e){
       resultBox.appendChild(container);
       
       container.addEventListener('click',function(){
-        if (idItem) {
-        window.location.href = `/menu?id=${encodeURIComponent(idItem)}`;
-        }
+        setTimeout(() => {
+          if (idItem) {
+          window.location.href = `/menu?id=${encodeURIComponent(idItem)}`;
+          }
+        }, 1000);
       })
       const btnSearch = document.getElementById('btnSearch')
       btnSearch.addEventListener('click', function(){
-        if (idItem) {
-        window.location.href = `/menu?id=${encodeURIComponent(idItem)}`;
-        }
+        setTimeout(() => {
+          if (idItem) {
+          window.location.href = `/menu?id=${encodeURIComponent(idItem)}`;
+          }
+        }, 1000);
       })
     })
   }
@@ -427,6 +431,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 2000);
 });
+
+const updateUser = document.getElementById('editField');
+if(updateUser){
+  updateUser.addEventListener('submit', function(e){
+    e.preventDefault()
+    fetchUpdateUser();
+  })
+}
+const needLoginProfile = document.getElementById('profileNeedLogin');
+if(needLoginProfile){
+  needLoginProfile.addEventListener('click', function(){
+  Toastify({
+      text: 'Silakan Login Terlebih Dahulu!',
+      backgroundColor: 'darkorange',
+      position:'center',
+      duration: 2000
+    }).showToast();
+    formLogin.classList.remove('hidden');
+    formLogin.classList.add('flex');
+})
+}
 
 FetchDataRegistration()
 FetchDataLogin()
