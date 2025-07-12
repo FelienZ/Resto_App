@@ -453,6 +453,17 @@ if(needLoginProfile){
 })
 }
 
+const btnStart = document.getElementById('startButton');
+if(btnStart){
+  btnStart.addEventListener('click', function(){
+    window.scrollBy({
+    top: window.innerHeight,
+    left: 0,
+    behavior: 'smooth'
+  });
+  })
+}
+
 FetchDataRegistration()
 FetchDataLogin()
 FetchDataLogout()
