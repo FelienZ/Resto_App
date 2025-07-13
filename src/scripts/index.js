@@ -349,7 +349,7 @@ if(btnCheckOutDefault){
 
 const input = document.getElementById('searchInput');
 const resultBox = document.getElementById('searchResult');
-
+let selectedId = null;
 input.addEventListener('input', function(e){
   e.preventDefault()
   const keyword = input.value.toLowerCase();
@@ -382,37 +382,48 @@ input.addEventListener('input', function(e){
 
   if(keyword.length >= 3){
     filterData.forEach(data => {
-      const container = document.createElement('tr');
-      container.dataset.itemId = data.id
-      const idItem = container.dataset.itemId
+      const container = document.createElement('div');
+      // container.dataset.itemId = data.id
+      // const idItem = container.dataset.itemId
       
-      container.className = 'w-full p-2 border-b border-gray-800 hover:bg-gray-300';
+      container.className = 'w-full p-2 border-b border-gray-800 hover:bg-gray-300 cursor-pointer';
       container.innerHTML = `
-        <td class="w-full flex items-center text-nowrap justify-between">
+        <div class="w-full flex items-center text-nowrap justify-between">
           <p class="text-sm">${data.menuName}</p>
           <img src="${data.pic}" alt="${data.menuName}" class="w-10">
-        </td>`;
+        </div>`;
       resultBox.appendChild(container);
       
       container.addEventListener('click',function(){
+        selectedId = data.id        
         setTimeout(() => {
-          if (idItem) {
-          window.location.href = `/menu?id=${encodeURIComponent(idItem)}`;
-          }
-        }, 1000);
-      })
-      const btnSearch = document.getElementById('btnSearch')
-      btnSearch.addEventListener('click', function(){
-        setTimeout(() => {
-          if (idItem) {
-          window.location.href = `/menu?id=${encodeURIComponent(idItem)}`;
+          if (selectedId) {
+          window.location.href = `/menu?id=${encodeURIComponent(selectedId)}`;
           }
         }, 1000);
       })
     })
   }
-
 })
+
+const btnSearch = document.getElementById('btnSearch')
+  btnSearch.addEventListener('click', function(){
+    const keyword = input.value.toLowerCase();
+    const listMenu = document.getElementById('menuData').textContent;
+    const dataMenu = JSON.parse(listMenu)
+    const filterData = dataMenu.filter(data => data.menuName.toLowerCase().includes(keyword));
+    if(filterData.length > 0){
+      window.location.href = `/menu?id=${encodeURIComponent(filterData[0].id)}`;
+    }else{
+      Toastify({
+        text: 'Menu Tidak Ditemukan!',
+        backgroundColor: 'red',
+        duration:2000,
+        position: "center",
+        gravity: top
+      }).showToast()
+    }
+  })
 
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);

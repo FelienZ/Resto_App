@@ -27,13 +27,13 @@
                 Welcome,sir
              <% } %>
         </p>
-        <div class="action flex md:gap-3 gap-1 justify-end " data-aos="fade-left"> 
+        <div class="action flex md:gap-3 gap-1 justify-end relative z-50" data-aos="fade-left"> 
            <!-- <input type="text" placeholder="Search Food.." class="input max-sm:text-sm text-center input-bordered border-gray-500 max-sm:w-[50%] max-sm:scale-90 rounded-full md:w-[60%] bg-white" /> -->
             <div class="relative max-w-md">
                 <input type="text" id="searchInput" placeholder="Search Food.." class="input max-sm:text-sm text-center input-bordered border-gray-500 max-sm:scale-90 rounded-full bg-white" />
-                <table id="searchResult" class="absolute top-full left-0 text-sm mt-5 w-full justify-between flex-col items-center bg-white shadow-md hidden z-50" >
+                <div id="searchResult" class="absolute top-full left-0 text-sm mt-5 w-full justify-between flex-col items-center bg-white shadow-md hidden z-50" >
 
-                </table>
+                </div>
         </div>
            <a class="btn bg-gray-800 border-none rounded-full text-white text-center cursor-pointer w-10 max-sm:scale-90" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></a>
         <div class="dropdown dropdown-end">
@@ -54,7 +54,7 @@
             </div>
             <ul
                 tabindex="0"
-                class="menu menu-sm dropdown-content bg-gray-900 text-white rounded-box z-99 mt-3 w-52 p-2 shadow">
+                class="menu menu-sm dropdown-content bg-gray-900 text-white rounded-box z-40 mt-3 w-52 p-2 shadow">
                     <% if (typeof(user) != 'undefined') { %>
                 <li>
                 <a class="justify-between" href="profile">
