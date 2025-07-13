@@ -1,4 +1,4 @@
-<nav class="flex h-fit bg-gray-900 text-white justify-between px-5 py-2">
+<nav class="flex h-fit bg-gray-900 relative z-50 text-white justify-between px-5 py-2">
         <p class="flex font-bold text-nowrap "><%= pageTitle %></p>
 
             <!-- Hamburger -->
@@ -13,12 +13,12 @@
         </ul> 
 </nav>
 <header class="grid bg-white h-fit">
-    <div class="head flex justify-evenly max-sm:text-sm w-full items-center h-fit text-black p-5">
-        <p class="font-bold text-xl max-sm:text-base text-gray-800 max-sm:text-nowrap max-sm:text-md" data-aos="fade-right">
+    <div class="head flex sm:justify-evenly justify-center max-sm:text-sm w-full items-center h-fit text-black p-5">
+        <p class="font-bold text-xl max-sm:hidden max-sm:text-base text-gray-800 max-sm:text-nowrap max-sm:text-md" data-aos="fade-right">
             <% if (typeof(user) !== 'undefined') { %>
             <% let name = '' %>
              Welcome, <% for( let index = 0; index < user.name.length; index++ ) { %>
-                <% if (index < 5) { %>
+                <% if (index < 4) { %>
                  <% name += user.name[index]%>
                 <% } %>
              <% } %>
@@ -27,7 +27,7 @@
                 Welcome,sir
              <% } %>
         </p>
-        <div class="action flex md:gap-3 gap-1 justify-end relative z-50" data-aos="fade-left"> 
+        <div class="action flex md:gap-3 gap-1 justify-end relative z-40" data-aos="fade-left"> 
            <!-- <input type="text" placeholder="Search Food.." class="input max-sm:text-sm text-center input-bordered border-gray-500 max-sm:w-[50%] max-sm:scale-90 rounded-full md:w-[60%] bg-white" /> -->
             <div class="relative max-w-md">
                 <input type="text" id="searchInput" placeholder="Search Food.." class="input max-sm:text-sm text-center input-bordered border-gray-500 max-sm:scale-90 rounded-full bg-white" />
@@ -56,12 +56,18 @@
                 tabindex="0"
                 class="menu menu-sm dropdown-content bg-gray-900 text-white rounded-box z-40 mt-3 w-52 p-2 shadow">
                     <% if (typeof(user) != 'undefined') { %>
-                <li>
-                <a class="justify-between" href="profile">
-                    Profile
-                <span class="badge badge-warning badge-outline">View</span>
-                </a>
-                </li>
+                    <li>
+                    <a class="justify-between" href="profile">
+                        <% let name = '' %>
+                        <% for( let index = 0; index < user.name.length; index++ ) { %>
+                            <% if (index<8) { %>
+                             <% name += user.name[index] %>
+                            <% } %>
+                        <% } %>
+                        <%= name %>
+                    <span class="badge badge-warning badge-outline">Profile</span>
+                    </a>
+                    </li>
                     <% } else { %>
                 <li>
                 <a class="justify-between" id="profileNeedLogin">

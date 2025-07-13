@@ -328,7 +328,6 @@ export async function fetchUpdateUser() {
             newName: formData.get('newName'),
             newEmail: formData.get('newEmail')
         }
-        console.log(data)
         const response = await fetch('/profile',{
             method: 'PUT',
             headers: {'Content-Type' : 'application/json'},
