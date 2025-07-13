@@ -409,6 +409,10 @@ input.addEventListener('input', function(e){
 const btnSearch = document.getElementById('btnSearch')
   btnSearch.addEventListener('click', function(){
     const keyword = input.value.toLowerCase();
+    if(keyword === ''){
+      window.location.href = `/menu`;
+      return;
+    }else{
     const listMenu = document.getElementById('menuData').textContent;
     const dataMenu = JSON.parse(listMenu)
     const filterData = dataMenu.filter(data => data.menuName.toLowerCase().includes(keyword));
@@ -423,6 +427,8 @@ const btnSearch = document.getElementById('btnSearch')
         gravity: top
       }).showToast()
     }
+    }
+    
   })
 
 document.addEventListener('DOMContentLoaded', () => {
